@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class Pieces {
 	
-	protected String color;
+	public String color;
 	protected String type;
 	protected boolean isAlive;
 	protected int xTo;
@@ -79,12 +79,12 @@ public abstract class Pieces {
 	}
 	
 	
-	void move(int xTo, int yTo) {
+	public void move(int xTo, int yTo) {
 		setX(xTo);
 		setY(yTo);
 	}
 	
-	abstract ArrayList<Move> getMoves();
+	public abstract ArrayList<Move> getMoves();
 	
 	
 	public Pieces (String color, String type) {
