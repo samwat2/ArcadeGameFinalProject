@@ -25,31 +25,31 @@ public class Gameboard extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		pieces[0][0] = new NormPiece("Black", "Black Piece.png", 0, 0);
-		pieces[0][2] = new NormPiece("Black", "Black Piece", 2, 0);
-		pieces[0][4] = new NormPiece("Black", "Black Piece", 4, 0);
-		pieces[0][6] = new NormPiece("Black", "Black Piece", 6, 0);
-		pieces[1][1] = new NormPiece("Black", "Black Piece", 1, 1);
-		pieces[1][3] = new NormPiece("Black", "Black Piece", 3, 1);
-		pieces[1][5] = new NormPiece("Black", "Black Piece", 5, 1);
-		pieces[1][7] = new NormPiece("Black", "Black Piece", 7, 1);
-		pieces[2][0] = new NormPiece("Black", "Black Piece", 0, 2);
-		pieces[2][2] = new NormPiece("Black", "Black Piece", 2, 2);
-		pieces[2][4] = new NormPiece("Black", "Black Piece", 4, 2);
-		pieces[2][6] = new NormPiece("Black", "Black Piece", 6, 2);
+		pieces[0][0] = new NormPiece("Black Piece", "Pieces", 0, 0);
+		pieces[0][2] = new NormPiece("Black Piece", "Piece", 2, 0);
+		pieces[0][4] = new NormPiece("Black Piece", "Piece", 4, 0);
+		pieces[0][6] = new NormPiece("Black Piece", "Piece", 6, 0);
+		pieces[1][1] = new NormPiece("Black Piece", "Piece", 1, 1);
+		pieces[1][3] = new NormPiece("Black Piece", "Piece", 3, 1);
+		pieces[1][5] = new NormPiece("Black Piece", "Piece", 5, 1);
+		pieces[1][7] = new NormPiece("Black Piece", "Piece", 7, 1);
+		pieces[2][0] = new NormPiece("Black Piece", "Piece", 0, 2);
+		pieces[2][2] = new NormPiece("Black Piece", "Piece", 2, 2);
+		pieces[2][4] = new NormPiece("Black Piece", "Piece", 4, 2);
+		pieces[2][6] = new NormPiece("Black Piece", "Piece", 6, 2);
 //		
-		pieces[7][1] = new NormPiece("Red", "Red Piece", 1, 7);
-		pieces[7][3] = new NormPiece("Red", "Red Piece", 3, 7);
-		pieces[7][5] = new NormPiece("Red", "Red Piece", 5, 7);
-		pieces[7][7] = new NormPiece("Red", "Red Piece", 7, 7);
-		pieces[6][0] = new NormPiece("Red", "Red Piece", 0, 6);
-		pieces[6][2] = new NormPiece("Red", "Red Piece", 2, 6);
-		pieces[6][4] = new NormPiece("Red", "Red Piece", 4, 6);
-		pieces[6][6] = new NormPiece("Red", "Red Piece", 6, 6);
-		pieces[5][1] = new NormPiece("Red", "Red Piece", 1, 5);
-		pieces[5][3] = new NormPiece("Red", "Red Piece", 3, 5);
-		pieces[5][5] = new NormPiece("Red", "Red Piece", 5, 5);
-		pieces[5][7] = new NormPiece("Red", "Red Piece", 7, 5);
+		pieces[7][1] = new NormPiece("Red Piece", "Red", 1, 7);
+		pieces[7][3] = new NormPiece("Red Piece", "Red", 3, 7);
+		pieces[7][5] = new NormPiece("Red Piece", "Red", 5, 7);
+		pieces[7][7] = new NormPiece("Red Piece", "Red", 7, 7);
+		pieces[6][0] = new NormPiece("Red Piece", "Red", 0, 6);
+		pieces[6][2] = new NormPiece("Red Piece", "Red", 2, 6);
+		pieces[6][4] = new NormPiece("Red Piece", "Red", 4, 6);
+		pieces[6][6] = new NormPiece("Red Piece", "Red", 6, 6);
+		pieces[5][1] = new NormPiece("Red Piece", "Red", 1, 5);
+		pieces[5][3] = new NormPiece("Red Piece", "Red", 3, 5);
+		pieces[5][5] = new NormPiece("Red Piece", "Red", 5, 5);
+		pieces[5][7] = new NormPiece("Red Piece", "Red", 7, 5);
 		
 		
 		GridPane root = new GridPane();
@@ -59,7 +59,7 @@ public class Gameboard extends Application {
 				StackPane square = new StackPane();
 				String color;
 				if ((row + col) % 2 == 0) {
-					color = "red";
+					color = "BC1400";
 				} else {
 					color = "black";
 				}
@@ -67,14 +67,12 @@ public class Gameboard extends Application {
 
 				root.add(square, col, row);
 				if (pieces[row][col] != null) {
-//					String pieceImage = pieces[row][col].getColor().toLowerCase()
-//							+ pieces[row][col].getType().toUpperCase()
-//							+ pieces[row][col].getType().toLowerCase();
+					String pieceImage = pieces[row][col].getColor();
 //					
-					Image image = new Image("file:Sprites/" + "Red Piece" + ".png", 100, 100, false, false);
+//					Image image2 = new Image("file:Sprites/" + "Black Piece" + ".png", 100, 100, false, false);
+//					root.add(new ImageView(image2), col, row);
+					Image image = new Image("file:Sprites/" + pieceImage + ".png", 100, 100, false, false);
 					root.add(new ImageView(image), col, row);
-					Image image2 = new Image("file:Sprites/" + "Black Piece" + ".png", 100, 100, false, false);
-					root.add(new ImageView(image2), col, row);
 				}
 			}
 		}
