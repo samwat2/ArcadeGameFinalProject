@@ -20,7 +20,7 @@ import model.NormPiece;
 public class Gameboard extends Application {
 	NormPiece[][] pieces = new NormPiece[8][8];
 	NormPiece tempPiece;
-	String turn = "black";
+	String turn = "Black Piece";
 	NormPiece killPiece;
 
 	@Override
@@ -87,11 +87,11 @@ public class Gameboard extends Application {
 				// System.out.printf("%s %s\n", (int)(e.getX() / 100), (int)(e.getY() / 100));
 				resetBackground(root, size);
 				if (pieces[row][col] != null) {
-					if (pieces[row][col].color.toLowerCase().equals(turn))
+					if (pieces[row][col].color.equals(turn))
 						if (pieces[row][col].getMoves() != null)
 							for (Move move : pieces[row][col].getMoves()) {
 								if (getStackPaneFromGridPane(root, move.getCol(), move.getRow()) != null) {
-									if(pieces[move.getRow()][move.getCol()] == null || (pieces[move.getRow()][move.getCol()] != null && !pieces[move.getRow()][move.getCol()].getColor().toLowerCase().equals(turn))) {
+									if(pieces[move.getRow()][move.getCol()] == null || (pieces[move.getRow()][move.getCol()] != null && !pieces[move.getRow()][move.getCol()].getColor().equals(turn))) {
 									getStackPaneFromGridPane(root, move.getCol(), move.getRow())
 											.setStyle("-fx-background-color: green;");
 									}
@@ -125,7 +125,7 @@ public class Gameboard extends Application {
 					tempPiece.move(col, row);
 					pieces[row][col] = tempPiece;
 					if(!gameOver()) {
-					turn = turn.equals("white") ? "black" : "white";
+					turn = turn.equals("black") ? "white" : "black";
 					}else {
 						
 					}
@@ -146,9 +146,9 @@ public class Gameboard extends Application {
 				StackPane square = getStackPaneFromGridPane(gridPane, col, row);
 				String color;
 				if ((row + col) % 2 == 0) {
-					color = "white";
+					color = "BC1400";
 				} else {
-					color = "gray";
+					color = "black";
 				}
 				square.setStyle("-fx-background-color: " + color + ";");
 			}
