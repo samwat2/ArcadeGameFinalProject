@@ -16,12 +16,15 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import model.Move;
 import model.NormPiece;
+import model.Pieces;
 
 public class Gameboard extends Application {
 	NormPiece[][] pieces = new NormPiece[8][8];
 	NormPiece tempPiece;
 	String turn ="Black Piece";
 	NormPiece killPiece;
+
+
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -195,6 +198,8 @@ public class Gameboard extends Application {
 		}
 		return null;
 	}
+
+	
 	}
 
 
