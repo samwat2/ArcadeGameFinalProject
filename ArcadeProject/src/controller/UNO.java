@@ -2,17 +2,26 @@ package controller;
 
 import java.util.Random;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
 import model.Card;
 import model.Deck;
 import model.Player;
 //don't touch
-public class UNO {
+public class UNO extends Application{
 	
 	public Random rng = new Random();//random for initial
 	public Player player;//current player
 	public Player[] players;//all the players
 	public Card card;//current card
 	public Deck deck;//all 112 cards.
+	
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	
 	public static void mainMenu() {
 		//calls the game
@@ -39,5 +48,6 @@ public class UNO {
 		 * round scores points per card on their opponents hand.
 		 */
 	}
+
 }
 
