@@ -5,7 +5,7 @@ import java.util.Random;
 import model.Card;
 import model.Deck;
 import model.Player;
-
+//don't touch
 public class UNO {
 	
 	public Random rng = new Random();//random for initial
@@ -20,6 +20,8 @@ public class UNO {
 	
 	public static void createPlayers() {
 		//creates players and stores in the player array
+		String prompt = "What is your name?", prompt2 = "Please enter a secret key";
+		
 	}
 	
 	public static void playGame() {
@@ -32,8 +34,10 @@ public class UNO {
 	}
 	
 	public static void declareWinner() {
-		//determines which player has no cards and has the highest point value
-		//other hands.
+		/*
+		 * objective: the first player to play their hand in each
+		 * round scores points per card on their opponents hand.
+		 */
 	}
 }
 

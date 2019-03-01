@@ -7,14 +7,10 @@ public class Card {
 	private int faceValue;
 	
 	public Card(CardColor cardColor, int faceValue) {
-		super();
-		this.cardColor = cardColor;
-		this.faceValue = faceValue;
+		setCardColor(cardColor);
+		setFaceValue(faceValue);
 	}
 
-	public Card() {
-		super();
-	}
 
 	public CardColor getCardColor() {
 		return cardColor;
@@ -35,7 +31,7 @@ public class Card {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("Card [cardColor=");
+		builder.append("\nCard [cardColor=");
 		builder.append(cardColor);
 		builder.append(", faceValue=");
 		builder.append(faceValue);

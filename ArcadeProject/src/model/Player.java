@@ -2,24 +2,22 @@ package model;
 
 import java.util.Arrays;
 
-public class Player {
-	private String name;
-	private Card[] hand;
-	private int key;
+public class Player { 					//player creation
 	
-	public Player(String name, int key) {
-		//TODO
-	}
-
+	private String name;
+	private Card[] hand = new Card[7];	//amount set per hand is seven
+	private int key;					//secret key
+	
 	public Player(String name, Card[] hand, int key) {
-		super();
-		this.name = name;
-		this.hand = hand;
-		this.key = key;
+		setName(name);
+		setKey(key);
+		setHand(hand);
 	}
-
-	public Player(String name2, Card[] hand2) {
-		// TODO 
+	public Player(String name, int key) {
+		setName(name);
+		setKey(key);
+		getHand();
+		
 	}
 
 	public String getName() {
