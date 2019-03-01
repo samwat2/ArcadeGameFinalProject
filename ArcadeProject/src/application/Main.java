@@ -33,7 +33,7 @@ public class Main extends Application {
 				@Override
 				public void handle(ActionEvent event) {
 					try {
-						// insert UNO stage here
+						one.start(primaryStage);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
