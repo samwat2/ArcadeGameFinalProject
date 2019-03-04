@@ -3,19 +3,21 @@ package controller;
 import java.awt.TextField;
 import java.util.Arrays;
 import java.util.Random;
-import javafx.scene.control.PasswordField;
-import javafx.application.Application;
+
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+
+import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Card;
 import model.Deck;
 import model.Player;
 import sun.security.tools.KeyStoreUtil;
+
 //don't touch
 public class UNO extends Application{
 	
 	public Random rng = new Random();//random for initial
-
 	public static Player player;//current player
 	public static Player[] players;//all the players or maybe an arrayList?
 	public static Card card;//current card
@@ -26,7 +28,7 @@ public class UNO extends Application{
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+		// TODO Auto-generated method stub
 		
 	}
 	
@@ -35,7 +37,6 @@ public class UNO extends Application{
 		playGame();
 		//calls the game
 		System.out.println("Welcome to UNO");
-		
 
 	}
 	

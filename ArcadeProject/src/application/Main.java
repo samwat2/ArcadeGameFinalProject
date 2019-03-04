@@ -17,12 +17,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	public Button playUNO = new Button("Play UNO");
-	public Button playCheckers = new Button("Play Checkers");
-	public StackPane background = new StackPane();
-	public Button submit = new Button("Submit");
-	public UNO one = new UNO();
-	public Gameboard board = new Gameboard();
+	Button playUNO = new Button("Play UNO");
+	Button playCheckers = new Button("Play Checkers");
+	StackPane background = new StackPane();
+	Button submit = new Button("Submit");
+	UNO one = new UNO();
+	Gameboard board = new Gameboard();
 
 	@Override
 	public void start(Stage primaryStage) {
