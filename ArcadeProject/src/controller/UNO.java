@@ -15,12 +15,16 @@ public class UNO {
 	public Random rng = new Random();//random for initial
 	public static Player player;//current player
 	public static Player[] players;//all the players or maybe an arrayList?
-	public Card card;//current card
+	public static Card card;//current card
 	public static Deck deck;//all 112 cards.
-	public Card[] dicardPile; //discard pile
+	public static Card[] discardPile; //discard pile
 	
 	public static void mainMenu() {
 		playGame();
+		//every player draws first
+		//first draw is initial
+			//if it is wild re draw
+			//if it is four re draw
 	}
 	
 	//this method needs to be tested
@@ -49,20 +53,24 @@ public class UNO {
 	}
 	
 	public static void playGame() {
+		discardPile = new Card[112];
 		//new deck
 		deck = new Deck();
 		//shuffle deck
 		deck.shuffleDeck();
+//		initial
+	    discardPile[0] = deck.getCards()[0];
+	    System.out.println(currentCard());
 		//checks key for player
-		final PasswordField key = new PasswordField();
-		key.setText("Please enter your key");
-		int input = Integer.parseInt(key.getText());
-		if(input == player.getKey()) {
+//		final PasswordField key = new PasswordField();
+//		key.setText("Please enter your key");
+//		int input = Integer.parseInt(key.getText());
+//		if(input == player.getKey()) {
 			//draw
 			draw(player);
-		}else {
+//		}else {
 			//throw and error and key again.
-		}
+//		}
 		/*
 		 * 1) player one enter's pin
 		 * 		draws first
@@ -75,7 +83,25 @@ public class UNO {
 	}
 	
 	public static void play() {
-		String[] prompt = {""};
+		//what options the player had to play
+//		String[] prompt = {""};
+	}
+	
+	public static void checkHand() {
+		for(int i = 0 ; i < 7; i ++) {
+//			if(player.getHand()[i].getCardColor() == dicardPile) {}
+			if(player.getHand()[i].getFaceValue() == 0) {}
+			
+		}
+	}
+	
+	public static Card currentCard() {
+		//gets the current card in play for the discardPile
+		for(int i = 0; i < discardPile.length; i ++) {
+			card = discardPile[i];
+		}
+		
+		return card;
 	}
 
 	
