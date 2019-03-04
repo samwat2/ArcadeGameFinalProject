@@ -1,8 +1,8 @@
 package controller;
 
 import java.util.Random;
+
 import javafx.application.Application;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import model.Card;
 import model.Deck;
@@ -15,19 +15,16 @@ public class UNO extends Application{
 	public Player[] players;//all the players
 	public Card card;//current card
 	public Deck deck;//all 112 cards.
-	public Button endTurn = new Button();
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
+		// TODO Auto-generated method stub
 		
 	}
 	
 	
 	public static void mainMenu() {
 		//calls the game
-		System.out.println("Welcome to UNO");
-		
 	}
 	
 	public static void createPlayers() {
