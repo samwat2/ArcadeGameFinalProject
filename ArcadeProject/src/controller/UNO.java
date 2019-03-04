@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.TextField;
+import java.util.Arrays;
 import java.util.Random;
 
 import javafx.scene.control.PasswordField;
@@ -15,16 +16,15 @@ public class UNO {
 	public static Player player;//current player
 	public static Player[] players;//all the players or maybe an arrayList?
 	public Card card;//current card
-	public Deck deck;//all 112 cards.
-	public Card[] dicardPile; //dicard pile
+	public static Deck deck;//all 112 cards.
+	public Card[] dicardPile; //discard pile
 	
 	public static void mainMenu() {
-		//calls the game
+		playGame();
 	}
 	
+	//this method needs to be tested
 	public static void createPlayers() {
-		//SAMMY
-		//creates players and stores in the player array
 		//LEAST AMOUNT OF PLAYERS: 2
 		//MOST AMOUNT OF PLAYERS: 4
 		int input2, count = 0;
@@ -49,27 +49,50 @@ public class UNO {
 	}
 	
 	public static void playGame() {
-		//SAMMY
+		//new deck
+		deck = new Deck();
+		//shuffle deck
+		deck.shuffleDeck();
+		//checks key for player
+		final PasswordField key = new PasswordField();
+		key.setText("Please enter your key");
+		int input = Integer.parseInt(key.getText());
+		if(input == player.getKey()) {
+			//draw
+			draw(player);
+		}else {
+			//throw and error and key again.
+		}
 		/*
 		 * 1) player one enter's pin
 		 * 		draws first
 		 * 			player must lay a matching color down.
 		 * 				either by number, color, or word.
 		 * 2) test box for 'UNO'?
+		 * 3) on to the next Player
 		 */
 		
 	}
 	
-	public static void turn() {
-		//SAMMY
-		//to be used in the mainMenu.
+	public static void play() {
+		String[] prompt = {""};
 	}
+
 	
 	public static void declareWinner() {
 		/*
 		 * objective: the first player to play their hand in each
 		 * round scores points per card on their opponents hand.
 		 */
+	}
+	
+	public static void draw(Player player) {
+		//every player initially gets a hand of seven cards
+		Card[] newHand = new Card[7];
+		for(int q = 0; q < 7; q ++) {
+			newHand[q] = deck.getCards()[q];
+		}
+		player.setHand(newHand);
 	}
 }
 

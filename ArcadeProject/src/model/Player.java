@@ -7,6 +7,7 @@ public class Player { 					//player creation
 	private String name;
 	private Card[] hand = new Card[7];	//amount set per hand is seven
 	private int key;					//secret key
+	private Card card;
 	
 	public Player(String name, Card[] hand, int key) {
 		setName(name);
@@ -43,7 +44,13 @@ public class Player { 					//player creation
 	public void setKey(int key) {
 		this.key = key;
 	}
-
+	
+	public Card getCard() {
+		return card;
+	}
+	public void setCard(Card card) {
+		this.card = card;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

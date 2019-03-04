@@ -128,40 +128,40 @@ public class Deck {
 		for (int i = 0; i < cards.length; i++) {
 			if (cards[i].getCardColor().equals(CardColor.RED)) {
 				red++;
-				System.out.println("red count: " + red);
+//				System.out.println("red count: " + red);
 			}
 			if (cards[i].getCardColor().equals(CardColor.BLUE)) {
 				blue++;
-				System.out.println("blue count: " + blue);
+//				System.out.println("blue count: " + blue);
 			}
 			if (cards[i].getCardColor().equals(CardColor.GREEN)) {
 				green++;
-				System.out.println("green count: " + green);
+//				System.out.println("green count: " + green);
 			}
 			if (cards[i].getCardColor().equals(CardColor.YELLOW)) {
 				yellow++;
-				System.out.println("yellow count: " + yellow);
+//				System.out.println("yellow count: " + yellow);
 			}
 
 		}
 		// check to see red card stack
 		if (!(red == 25)) {
-			System.out.println("lacking red yo!");
+//			System.out.println("lacking red yo!");
 
 		}
 		// check to see green card stack
 		if (!(green == 25)) {
-			System.out.println("lacking blue yo!");
+//			System.out.println("lacking blue yo!");
 
 		}
 		// check to see yellow card stack
 		if (!(yellow == 25)) {
-			System.out.println("lacking yellow yo!");
+//			System.out.println("lacking yellow yo!");
 
 		}
 		// check to see blue card stack
 		if (!(blue == 25)) {
-			System.out.println("lacking blue yo!");
+//			System.out.println("lacking blue yo!");
 
 		}
 		this.cards = cards;
