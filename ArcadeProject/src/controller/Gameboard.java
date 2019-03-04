@@ -16,16 +16,19 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import model.Move;
 import model.NormPiece;
+import model.Pieces;
 
 public class Gameboard extends Application {
 	NormPiece[][] pieces = new NormPiece[8][8];
 	NormPiece tempPiece;
-	String turn = "Black Piece";
+	String turn ="Black Piece";
 	NormPiece killPiece;
+
+
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		pieces[0][0] = new NormPiece("Black Piece", "Pieces", 0, 0);
+		pieces[0][0] = new NormPiece("Black Piece", "Piece", 0, 0);
 		pieces[0][2] = new NormPiece("Black Piece", "Piece", 2, 0);
 		pieces[0][4] = new NormPiece("Black Piece", "Piece", 4, 0);
 		pieces[0][6] = new NormPiece("Black Piece", "Piece", 6, 0);
@@ -38,18 +41,18 @@ public class Gameboard extends Application {
 		pieces[2][4] = new NormPiece("Black Piece", "Piece", 4, 2);
 		pieces[2][6] = new NormPiece("Black Piece", "Piece", 6, 2);
 //		
-		pieces[7][1] = new NormPiece("Red Piece", "Red", 1, 7);
-		pieces[7][3] = new NormPiece("Red Piece", "Red", 3, 7);
-		pieces[7][5] = new NormPiece("Red Piece", "Red", 5, 7);
-		pieces[7][7] = new NormPiece("Red Piece", "Red", 7, 7);
-		pieces[6][0] = new NormPiece("Red Piece", "Red", 0, 6);
-		pieces[6][2] = new NormPiece("Red Piece", "Red", 2, 6);
-		pieces[6][4] = new NormPiece("Red Piece", "Red", 4, 6);
-		pieces[6][6] = new NormPiece("Red Piece", "Red", 6, 6);
-		pieces[5][1] = new NormPiece("Red Piece", "Red", 1, 5);
-		pieces[5][3] = new NormPiece("Red Piece", "Red", 3, 5);
-		pieces[5][5] = new NormPiece("Red Piece", "Red", 5, 5);
-		pieces[5][7] = new NormPiece("Red Piece", "Red", 7, 5);
+		pieces[7][1] = new NormPiece("Red Piece", "Piece", 1, 7);
+		pieces[7][3] = new NormPiece("Red Piece", "Piece", 3, 7);
+		pieces[7][5] = new NormPiece("Red Piece", "Piece", 5, 7);
+		pieces[7][7] = new NormPiece("Red Piece", "Piece", 7, 7);
+		pieces[6][0] = new NormPiece("Red Piece", "Piece", 0, 6);
+		pieces[6][2] = new NormPiece("Red Piece", "Piece", 2, 6);
+		pieces[6][4] = new NormPiece("Red Piece", "Piece", 4, 6);
+		pieces[6][6] = new NormPiece("Red Piece", "Piece", 6, 6);
+		pieces[5][1] = new NormPiece("Red Piece", "Piece", 1, 5);
+		pieces[5][3] = new NormPiece("Red Piece", "Piece", 3, 5);
+		pieces[5][5] = new NormPiece("Red Piece", "Piece", 5, 5);
+		pieces[5][7] = new NormPiece("Red Piece", "Piece", 7, 5);
 		
 		
 		GridPane root = new GridPane();
@@ -125,9 +128,9 @@ public class Gameboard extends Application {
 					tempPiece.move(col, row);
 					pieces[row][col] = tempPiece;
 					if(!gameOver()) {
-					turn = turn.equals("black") ? "white" : "black";
+					turn = turn.equals("Black Piece") ? "Red Piece" : "Black Piece";
 					}else {
-						
+						turn=turn.equals("Red Piece") ? "Black Piece" : "Red Piece";
 					}
 				}
 				tempPiece = null;
@@ -158,7 +161,7 @@ public class Gameboard extends Application {
 	
 	private boolean gameOver() {
 		int blackPiece = 0;
-		int whitePiece = 0;
+		int redPiece = 0;
 		
 		for(int i = 0; i < pieces.length; i++) {
 			for(int j = 0; j < pieces[i].length; j++) {
@@ -166,14 +169,14 @@ public class Gameboard extends Application {
 					if(pieces[i][j].getColor().equalsIgnoreCase("Black")) {
 						blackPiece++;
 					}else {
-						whitePiece++;
+						redPiece++;
 					}
 				}
 			}
 		}
 		
 		
-		return whitePiece == 0 || blackPiece == 0;
+		return redPiece == 0 || blackPiece == 0;
 	}
 
 	private StackPane getStackPaneFromGridPane(GridPane gridPane, int col, int row) {
@@ -195,6 +198,8 @@ public class Gameboard extends Application {
 		}
 		return null;
 	}
+
+	
 	}
 
 

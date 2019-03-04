@@ -3,28 +3,40 @@ package controller;
 import java.awt.TextField;
 import java.util.Arrays;
 import java.util.Random;
-
 import javafx.scene.control.PasswordField;
+import javafx.application.Application;
+import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import model.Card;
 import model.Deck;
 import model.Player;
 import sun.security.tools.KeyStoreUtil;
 //don't touch
-public class UNO {
+public class UNO extends Application{
 	
 	public Random rng = new Random();//random for initial
+
 	public static Player player;//current player
 	public static Player[] players;//all the players or maybe an arrayList?
 	public static Card card;//current card
 	public static Deck deck;//all 112 cards.
 	public static Card[] discardPile; //discard pile
+	public Button endTurn = new Button();
+	
+	
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		
+		
+	}
+	
 	
 	public static void mainMenu() {
 		playGame();
-		//every player draws first
-		//first draw is initial
-			//if it is wild re draw
-			//if it is four re draw
+		//calls the game
+		System.out.println("Welcome to UNO");
+		
+
 	}
 	
 	//this method needs to be tested
@@ -111,6 +123,7 @@ public class UNO {
 		 * round scores points per card on their opponents hand.
 		 */
 	}
+
 	
 	public static void draw(Player player) {
 		//every player initially gets a hand of seven cards
@@ -120,5 +133,6 @@ public class UNO {
 		}
 		player.setHand(newHand);
 	}
+
 }
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class NormPiece extends Pieces {
 	private boolean hasMoved;
 	private boolean validMove;
+	private boolean king= false;
 
 	public NormPiece(String color, String type, int x, int y) {
 		super(color, type, x, y);
@@ -27,6 +28,12 @@ public boolean isHasMoved() {
 		this.hasMoved = hasMoved;
 	}
 
+	public boolean getKing() {
+        return king;
+    }
+    public void setKing(boolean state) {
+        king = state;
+    }
 
 	@Override
 	public
