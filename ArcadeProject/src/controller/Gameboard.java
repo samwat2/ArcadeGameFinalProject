@@ -21,10 +21,8 @@ import model.Pieces;
 public class Gameboard extends Application {
 	NormPiece[][] pieces = new NormPiece[8][8];
 	NormPiece tempPiece;
-	String turn ="Black Piece";
+	String turn = "Black Piece";
 	NormPiece killPiece;
-
-
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -53,8 +51,7 @@ public class Gameboard extends Application {
 		pieces[5][3] = new NormPiece("Red Piece", "Piece", 3, 5);
 		pieces[5][5] = new NormPiece("Red Piece", "Piece", 5, 5);
 		pieces[5][7] = new NormPiece("Red Piece", "Piece", 7, 5);
-		
-		
+
 		GridPane root = new GridPane();
 		final int size = 8;
 		for (int row = 0; row < size; row++) {
@@ -86,19 +83,22 @@ public class Gameboard extends Application {
 		root.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 			int row = (int) (e.getY() / 100);
 			int col = (int) (e.getX() / 100);
+			
 			if (tempPiece == null) {
 				// System.out.printf("%s %s\n", (int)(e.getX() / 100), (int)(e.getY() / 100));
 				resetBackground(root, size);
 				if (pieces[row][col] != null) {
 					if (pieces[row][col].color.equals(turn))
 						if (pieces[row][col].getMoves() != null)
+							//insert jump
 							for (Move move : pieces[row][col].getMoves()) {
 								if (getStackPaneFromGridPane(root, move.getCol(), move.getRow()) != null) {
-									if(pieces[move.getRow()][move.getCol()] == null || (pieces[move.getRow()][move.getCol()] != null && !pieces[move.getRow()][move.getCol()].getColor().equals(turn))) {
-									getStackPaneFromGridPane(root, move.getCol(), move.getRow())
-											.setStyle("-fx-background-color: green;");
+									if (pieces[move.getRow()][move.getCol()] == null
+											|| (pieces[move.getRow()][move.getCol()] != null
+													&& !pieces[move.getRow()][move.getCol()].getColor().equals(turn))) {
+										getStackPaneFromGridPane(root, move.getCol(), move.getRow())
+												.setStyle("-fx-background-color: green;");
 									}
-				
 								}
 							}
 					StackPane mattePane = (StackPane) getStackPaneFromGridPane(root, (int) (e.getX() / 100),
@@ -113,11 +113,11 @@ public class Gameboard extends Application {
 					ImageView removeImage = getImageFromGridPane(root, col, row);
 					if (removeImage != null) {
 						root.getChildren().remove(removeImage);
-						
+
 					}
-					for(int i = 0; i <= 7; i++) {
-						for(int j = 0; j <= 7; j++) {
-							if(pieces[i][j] == tempPiece) {
+					for (int i = 0; i <= 7; i++) {
+						for (int j = 0; j <= 7; j++) {
+							if (pieces[i][j] == tempPiece) {
 								pieces[i][j] = null;
 							}
 						}
@@ -127,10 +127,10 @@ public class Gameboard extends Application {
 					root.add(image, col, row);
 					tempPiece.move(col, row);
 					pieces[row][col] = tempPiece;
-					if(!gameOver()) {
-					turn = turn.equals("Black Piece") ? "Red Piece" : "Black Piece";
-					}else {
-						turn=turn.equals("Red Piece") ? "Black Piece" : "Red Piece";
+					if (!gameOver()) {
+						turn = turn.equals("Black Piece") ? "Red Piece" : "Black Piece";
+					} else {
+						turn = turn.equals("Red Piece") ? "Black Piece" : "Red Piece";
 					}
 				}
 				tempPiece = null;
@@ -158,24 +158,22 @@ public class Gameboard extends Application {
 		}
 
 	}
-	
+
 	private boolean gameOver() {
 		int blackPiece = 0;
 		int redPiece = 0;
-		
-		for(int i = 0; i < pieces.length; i++) {
-			for(int j = 0; j < pieces[i].length; j++) {
-				if(pieces[i][j] != null) {
-					if(pieces[i][j].getColor().equalsIgnoreCase("Black")) {
+		for (int i = 0; i < pieces.length; i++) {
+			for (int j = 0; j < pieces[i].length; j++) {
+				if (pieces[i][j] != null) {
+					if (pieces[i][j].getColor().equalsIgnoreCase("Black")) {
 						blackPiece++;
-					}else {
+					} else {
 						redPiece++;
 					}
 				}
 			}
 		}
-		
-		
+
 		return redPiece == 0 || blackPiece == 0;
 	}
 
@@ -199,7 +197,36 @@ public class Gameboard extends Application {
 		return null;
 	}
 
-	
+	private static void canAttack(NormPiece[][] pieces, NormPiece tempPiece) {
+		boolean attack = false;
+		for (Move move : tempPiece.getMoves()) {
+			if (tempPiece.getColor() == "Black Piece") {
+				if (pieces[move.getRow()][move.getCol()] != null
+						&& pieces[move.getRow() + 1][move.getCol() + 1] == null) {
+					tempPiece.getMoves().add(new Move(move.getRow() + 1, move.getCol() + 1));
+					attack = true;
+				}
+				if (pieces[move.getRow()][move.getCol()] != null
+						&& pieces[move.getRow() + 1][move.getCol() - 1] == null) {
+					tempPiece.getMoves().add(new Move(move.getRow() + 1, move.getCol() - 1));
+					attack = true;
+				}
+			}
+			if (tempPiece.getColor() == "Red Piece") {
+				if (pieces[move.getRow()][move.getCol()] != null
+						&& pieces[move.getRow() - 1][move.getCol() + 1] == null) {
+					tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() + 1));
+					attack = true;
+				}
+				if (pieces[move.getRow()][move.getCol()] != null
+						&& pieces[move.getRow() - 1][move.getCol() - 1] == null) {
+					tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() - 1));
+					attack = true;
+				}
+			}
+		}
+
+		
 	}
 
-
+}
