@@ -39,10 +39,12 @@ public boolean isHasMoved() {
 	public
 	ArrayList<Move> getMoves() {
 		ArrayList<Move> moves= new ArrayList<Move>();
+		//Down moves
 		moves.add(new Move(getX()+1, getY()+1));
-		moves.add(new Move(getX()-1, getY()-1));
-		moves.add(new Move(getX()-1, getY()+1));
 		moves.add(new Move(getX()+1, getY()-1));
+		//Up moves
+		moves.add(new Move(getX()-1, getY()+1));
+		moves.add(new Move(getX()-1, getY()-1));
 	
 		return moves;
 	}
