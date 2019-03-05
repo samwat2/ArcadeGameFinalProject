@@ -1,12 +1,21 @@
 package controller;
 
-import java.awt.TextField;
 import java.util.ArrayList;
 import java.util.Random;
-
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBase;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import model.Card;
 import model.Deck;
@@ -23,11 +32,49 @@ public class UNO extends Application {
 //	public static Card[] discardPile; // discard pile
 	public static ArrayList<Card> discardPile;
 	public Button endTurn = new Button();
-
+	private ButtonBase draw = new Button();
+	private StackPane background = new StackPane();
+	
 	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
+	public void start(Stage primaryStage) {
+		try {
+			draw .setOnAction(new EventHandler<ActionEvent>() {
 
+				@Override
+				public void handle(ActionEvent event) {
+					// This will have the player to draw a card form the draw pile, can only do once per turn
+
+				}
+			});
+			endTurn.setOnAction(new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// This will end turn when player is done with their turn
+
+				}
+			});
+			deck = new Deck();
+			String url = "file:Sprites/red background.jpg";
+			Image backGround = new Image(url);
+			// ImageView view= new ImageView(url);
+			BackgroundImage back = new BackgroundImage(backGround, null, null, null,
+					new BackgroundSize(800, 800, false, false, true, true));
+
+			background.setBackground(new Background(back));
+
+			Scene scene = new Scene(background, 1050, 800);
+
+			primaryStage.setScene(scene);
+			primaryStage.setTitle("Arcade: UNO");
+			background.setPadding(new Insets(20, 80, 20, 80));
+
+			primaryStage.setResizable(false);
+
+			primaryStage.show();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static void mainMenu() {

@@ -17,12 +17,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-	Button playUNO = new Button("Play UNO");
-	Button playCheckers = new Button("Play Checkers");
-	StackPane background = new StackPane();
-	Button submit = new Button("Submit");
-	UNO one = new UNO();
-	Gameboard board = new Gameboard();
+	private Button playUNO = new Button("Play UNO");
+	private Button playCheckers = new Button("Play Checkers");
+	private StackPane background = new StackPane();
+	private Button submit = new Button("Submit");
+	private UNO one = new UNO();
+	private Gameboard board = new Gameboard();
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -48,7 +48,6 @@ public class Main extends Application {
 					try {
 						board.start(primaryStage);
 					} catch (Exception e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -56,7 +55,6 @@ public class Main extends Application {
 
 			String url = "file:Sprites/ArcadeLogo.jpg";
 			Image backGround = new Image(url);
-			// ImageView view= new ImageView(url);
 			BackgroundImage back = new BackgroundImage(backGround, null, null, null,
 					new BackgroundSize(800, 800, false, false, true, true));
 
