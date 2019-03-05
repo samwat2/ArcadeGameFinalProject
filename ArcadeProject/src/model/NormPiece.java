@@ -39,12 +39,14 @@ public boolean isHasMoved() {
 	public
 	ArrayList<Move> getMoves() {
 		ArrayList<Move> moves= new ArrayList<Move>();
-		//Down moves
+		if(getColor() == "Black Piece" || king == true) {
 		moves.add(new Move(getX()+1, getY()+1));
 		moves.add(new Move(getX()+1, getY()-1));
-		//Up moves
+		}
+		if(getColor() == "Red Piece" || king == true) {
 		moves.add(new Move(getX()-1, getY()+1));
 		moves.add(new Move(getX()-1, getY()-1));
+		}
 	
 		return moves;
 	}
