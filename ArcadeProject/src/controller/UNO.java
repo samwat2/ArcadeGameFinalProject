@@ -1,57 +1,56 @@
 package controller;
 
 import java.awt.TextField;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Random;
 
+import javafx.application.Application;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
-
-import javafx.application.Application;
 import javafx.stage.Stage;
 import model.Card;
 import model.Deck;
 import model.Player;
-import sun.security.tools.KeyStoreUtil;
 
 //don't touch
-public class UNO extends Application{
-	
-	public Random rng = new Random();//random for initial
-	public static Player player;//current player
-	public static Player[] players;//all the players or maybe an arrayList?
-	public static Card card;//current card
-	public static Deck deck;//all 112 cards.
-	public static Card[] discardPile; //discard pile
+public class UNO extends Application {
+
+	public Random rng = new Random();// random for initial
+	public static Player player;// current player
+	public static Player[] players;// all the players or maybe an arrayList?
+	public static Card card;// current card
+	public static Deck deck;// all 112 cards.
+//	public static Card[] discardPile; // discard pile
+	public static ArrayList<Card> discardPile;
 	public Button endTurn = new Button();
-	
-	
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// TODO Auto-generated method stub
-		
-	}
-	
-	
-	public static void mainMenu() {
-		playGame();
-		//calls the game
-		System.out.println("Welcome to UNO");
 
 	}
-	
-	//this method needs to be tested
+
+	public static void mainMenu() {
+		playGame();
+		// calls the game
+//		System.out.println("Welcome to UNO");
+
+	}
+
+	// this method needs to be tested
 	public static void createPlayers() {
-		//LEAST AMOUNT OF PLAYERS: 2
-		//MOST AMOUNT OF PLAYERS: 4
 		int input2, count = 0;
-		String prompt1 = "What is your name?", prompt2 = "Please enter a secret key", prompt = "How many players will be playing?";
 		boolean correct = false;
+		//text-field for amount of players
 		final TextField amountOfPlayers = new TextField();
+		//text-field text
 		amountOfPlayers.setText("How many players will be joining?");
+		//gathered input
 		String input = amountOfPlayers.getText();
+		//parsed input
 		int numOfPlayers = Integer.parseInt(input);
 		do {
+			//player's info per player
 			final TextField name = new TextField();
 			name.setText("Enter your name.");
 			PasswordField key = new PasswordField();
@@ -61,79 +60,89 @@ public class UNO extends Application{
 			players[count] = player;
 			count++;
 			correct = count == numOfPlayers;
-		}while(correct);
-		
+		} while (correct);
+
 	}
-	
+
 	public static void playGame() {
-		discardPile = new Card[112];
-		//new deck
+		// new deck
 		deck = new Deck();
-		//shuffle deck
+		// shuffle deck
 		deck.shuffleDeck();
 //		initial
-	    discardPile[0] = deck.getCards()[0];
-	    System.out.println(currentCard());
-		//checks key for player
-//		final PasswordField key = new PasswordField();
-//		key.setText("Please enter your key");
-//		int input = Integer.parseInt(key.getText());
-//		if(input == player.getKey()) {
-			//draw
-			draw(player);
-//		}else {
-			//throw and error and key again.
-//		}
+		discardPile.add(deck.getCards()[0]); 
+		// checks key for player
+		final PasswordField key = new PasswordField();
+		key.setText("Please enter your key");
+		int input = Integer.parseInt(key.getText());
+		if(input == player.getKey()) {
+		 drawHand(player);
+		}else {
+//		 throw and error and key again.
+				//do-while
+		}
+		//proceed to game
+		play();
 		/*
-		 * 1) player one enter's pin
-		 * 		draws first
-		 * 			player must lay a matching color down.
-		 * 				either by number, color, or word.
-		 * 2) test box for 'UNO'?
-		 * 3) on to the next Player
+		 * 1) player one enter's pin draws first player must lay a matching color down.
+		 * either by number, color, or word. 2) test box for 'UNO'? 3) on to the next
+		 * Player
 		 */
-		
+
 	}
-	
-	public static void play() {
-		//what options the player had to play
-//		String[] prompt = {""};
-	}
-	
+
 	public static void checkHand() {
-		for(int i = 0 ; i < 7; i ++) {
-//			if(player.getHand()[i].getCardColor() == dicardPile) {}
-			if(player.getHand()[i].getFaceValue() == 0) {}
-			
+		//TODO
+		
+	}
+
+	public static void play() {
+		//TODO
+		// what options the player had to play
+		for (int i = 0; i < 7; i++) {
+			//if the card-color has the same color
+			if(player.getHand()[i].getCardColor() == currentCard().getCardColor()) {
+				//has the option of laying down the card
+				discardPile.add(player.getHand()[i]);
+					//player must draw new card
+				draw();
+			}
+			//if the face value is the same integer
+			if (player.getHand()[i].getFaceValue() == currentCard().getFaceValue()) {
+				//has the option of laying down the card
+				discardPile.add(player.getHand()[i]);
+					//player must draw new card
+				draw();//has the option of laying down the card
+			}
+
 		}
 	}
 	
+	public static void draw() {
+		player.addCard(deck.getCards()[0]);
+	}
+
 	public static Card currentCard() {
-		//gets the current card in play for the discardPile
-		for(int i = 0; i < discardPile.length; i ++) {
-			card = discardPile[i];
-		}
-		
+		// gets the current card in play for the discardPile
+		card = discardPile.get(discardPile.size()-1);
 		return card;
 	}
 
-	
 	public static void declareWinner() {
 		/*
-		 * objective: the first player to play their hand in each
-		 * round scores points per card on their opponents hand.
+		 * objective: the first player to play their hand in each round scores points
+		 * per card on their opponents hand.
 		 */
 	}
 
-	
-	public static void draw(Player player) {
-		//every player initially gets a hand of seven cards
+	public static void drawHand(Player player) {
+		//THROWS ERRORS ON 128
+		// every player initially gets a hand of seven cards
 		Card[] newHand = new Card[7];
-		for(int q = 0; q < 7; q ++) {
+		for (int q = 0; q < 7; q++) {
 			newHand[q] = deck.getCards()[q];
 		}
 		player.setHand(newHand);
 	}
 
 }
-

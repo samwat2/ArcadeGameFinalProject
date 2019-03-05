@@ -3,6 +3,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="ArcadeProject/src"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Jordan/Desktop/IsemeyerJ_ConsoleIO-2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

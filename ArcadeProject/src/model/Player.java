@@ -51,6 +51,13 @@ public class Player { 					//player creation
 	public void setCard(Card card) {
 		this.card = card;
 	}
+	public void addCard(Card card) {
+		for(int i = 0; i < hand.length; i ++) {
+			if(hand[i] == null) {
+				hand[i] = card;
+			}
+		}
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
