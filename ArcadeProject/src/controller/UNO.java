@@ -23,6 +23,7 @@ public class UNO extends Application {
 //	public static Card[] discardPile; // discard pile
 	public static ArrayList<Card> discardPile;
 	public Button endTurn = new Button();
+	private static boolean quit = false;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -31,7 +32,10 @@ public class UNO extends Application {
 	}
 
 	public static void mainMenu() {
-		playGame();
+		createPlayers();
+		do {
+			playGame();
+		}while(quit);
 		// calls the game
 //		System.out.println("Welcome to UNO");
 
@@ -114,7 +118,7 @@ public class UNO extends Application {
 					//player must draw new card
 				draw();//has the option of laying down the card
 			}
-
+			//special cards
 		}
 	}
 	

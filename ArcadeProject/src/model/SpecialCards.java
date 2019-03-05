@@ -10,8 +10,19 @@ public class SpecialCards extends Card{
 	private Random rng = new Random();
 	
 	public SpecialCards(CardColor cardColor, CardFace cardFace) {
-		super(cardColor, 0);
+		//edit the zero because if it's special there is still a face value
+		super(cardColor, determineFaceValue(cardFace));
 		setCardFace(cardFace);
+	}
+	
+	public static int determineFaceValue(CardFace cardFace) {
+		int faceValue = 0;
+		if(cardFace == cardFace.WILDDRAWFOUR || cardFace == cardFace.WILD) {
+			faceValue = 50;
+		}else if(cardFace == cardFace.SKIP || cardFace == cardFace.REVERSE || cardFace == cardFace.DRAW2) {
+			faceValue = 20;
+		}
+		return faceValue;
 	}
 	
 
