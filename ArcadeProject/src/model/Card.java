@@ -5,10 +5,21 @@ import enums.CardColor;
 public class Card {
 	private CardColor cardColor;
 	private int faceValue;
+	protected boolean playable;
 	
-	public Card(CardColor cardColor, int faceValue) {
+	public Card(CardColor cardColor, int faceValue, boolean playable) {
 		setCardColor(cardColor);
 		setFaceValue(faceValue);
+	}
+
+
+	public boolean isPlayable() {
+		return playable;
+	}
+
+
+	public void setPlayable(boolean playable) {
+		this.playable = playable;
 	}
 
 

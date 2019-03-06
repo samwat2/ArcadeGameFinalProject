@@ -11,7 +11,7 @@ public class SpecialCards extends Card{
 	
 	public SpecialCards(CardColor cardColor, CardFace cardFace) {
 		//edit the zero because if it's special there is still a face value
-		super(cardColor, determineFaceValue(cardFace));
+		super(cardColor, determineFaceValue(cardFace), true);
 		setCardFace(cardFace);
 	}
 	

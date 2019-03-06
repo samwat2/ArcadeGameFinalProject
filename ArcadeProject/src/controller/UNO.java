@@ -171,16 +171,24 @@ public class UNO extends Application {
 		player.getHand();
 		//points
 		player.getCurrentPoints();
-		//display hand only
-		
+		//display hand only via gui
 	}
 
 	public static void cardPlay() {
 		//THIS METHOD NEEDS TO BE TESTED
+		//player must first select the card
+		
+			//then we must check to see if it is a legal move
+			//if the card isn't play-able then it won't be selectable
 		// what options the player had to play
 		for (int i = 0; i < 7; i++) {
 			//if the card-color has the same color
 			if(player.getHand()[i].getCardColor() == currentCard().getCardColor()) {
+				//first must display all options.
+					//maybe edit card class for isPlayable boolean and this method can check and set each boolean for the player to decide which to play.
+					//edit player class to have the ability to have many cards. 
+				//if players have no cards to match
+					//re-draw once
 				//has the option of laying down the card
 				discardPile.add(player.getHand()[i]);
 					//player must draw new card
@@ -216,7 +224,7 @@ public class UNO extends Application {
 	public static Card currentCard() {
 		//THIS METHOD NEEDS TO BE TESTED
 		// gets the current card in play for the discardPile
-		card = discardPile.get(discardPile.size()-1);
+		card = discardPile.get(discardPile.size()-1) != null ? null : null;
 		return card;
 	}
 
