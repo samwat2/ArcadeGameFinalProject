@@ -2,7 +2,6 @@ package controller;
 
 import java.awt.TextField;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Random;
 
 import javafx.application.Application;
@@ -70,7 +69,6 @@ public class UNO extends Application {
 	}
 	
 	public static void deckInit() {
-		Random rng = new Random();
 		// new deck
 		deck = new Deck();
 		// shuffle deck 
@@ -82,24 +80,26 @@ public class UNO extends Application {
 	public static void playGame() {
 		boolean declaredWinner = false;
 		int count = 0;
-//		createPlayers();
-		player = new Player("Sammy", 2468);
-		players.add(player);
-		player = new Player("Howard", 1111);
-		players.add(player);
-		player = new Player("Lowzie", 4444);
-		players.add(player);
-		player = new Player("Izzie", 2222);
-		players.add(player);
+		createPlayers();
+		//tested out players
+//		player = new Player("Sammy", 2468);
+//		players.add(player);
+//		player = new Player("Howard", 1111);
+//		players.add(player);
+//		player = new Player("Lowzie", 4444);
+//		players.add(player);
+//		player = new Player("Izzie", 2222);
+//		players.add(player);
 		deckInit();
 		do {
 			 int turn = (count % players.size());
 			 player = players.get(turn);
 			 drawHand(player);
-//			 playerKeyEntry(player);
-			 System.out.println(player.getName() + ", " + "hand " + Arrays.toString(player.getHand()));
+			 playerKeyEntry(player);
+//			 System.out.println(player.getName() + ", " + "hand " + Arrays.toString(player.getHand()));
 			count++;
-		}while(count < 50);
+			declaredWinner = declareWinner();
+		}while(!declaredWinner);
 
 	}
 	public static void playerKeyEntry(Player player) {
@@ -163,11 +163,12 @@ public class UNO extends Application {
 		return card;
 	}
 
-	public static void declareWinner() {
+	public static boolean declareWinner() {
 		/*
 		 * objective: the first player to play their hand in each round scores points
 		 * per card on their opponents hand.
 		 */
+		return false;
 	}
 
 	public static void drawHand(Player player) {
