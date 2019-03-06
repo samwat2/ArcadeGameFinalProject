@@ -201,10 +201,12 @@ public class UNO extends Application {
 	}
 	
 	public static void draw() {
+		//THIS METHOD NEEDS TO BE TESTED
 		player.addCard(deck.getCards()[0]);
 	}
 
 	public static Card currentCard() {
+		//THIS METHOD NEEDS TO BE TESTED
 		// gets the current card in play for the discardPile
 		card = discardPile.get(discardPile.size()-1);
 		return card;
