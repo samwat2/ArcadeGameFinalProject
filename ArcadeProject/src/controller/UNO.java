@@ -29,6 +29,7 @@ public class UNO extends Application {
 	public static Player player;// current player
 //	public static Player[] players;// all the players or maybe an arrayList?
 	public static ArrayList<Player> players = new ArrayList<Player>();
+	public static Player winner;
 	public static Card card;// current card
 	public static Deck deck;// all 112 cards.
 //	public static Card[] discardPile; // discard pile
@@ -203,7 +204,13 @@ public class UNO extends Application {
 	}
 	
 	public static void draw() {
-		player.addCard(deck.getCards()[0]);
+		//this method needs to be tested
+		//check to see if they have the option to draw
+		for(int i = 0; i < player.getHand().length; i++ ) {
+			if(player.getHand()[i] == null) {
+				player.addCard(deck.getCards()[0]);
+			}
+		}
 	}
 
 	public static Card currentCard() {
@@ -220,6 +227,7 @@ public class UNO extends Application {
 		 */
 		for(int i = 0; i < players.size(); i ++) {
 			if(players.get(i).getCurrentPoints() == 0) {
+				winner = players.get(i);
 				return true;
 			}
 		}
