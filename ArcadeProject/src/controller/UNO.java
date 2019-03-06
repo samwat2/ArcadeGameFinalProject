@@ -22,7 +22,7 @@ import model.Deck;
 import model.Player;
 import model.SpecialCards;
 
-//don't touch
+
 public class UNO extends Application {
 
 	public Random rng = new Random();// random for initial
@@ -124,6 +124,7 @@ public class UNO extends Application {
 		card = deck.getCards()[1];
 		discardPile.add(card); 
 	}
+	
 	public static void playGame() {
 		boolean declaredWinner = false;
 		int count = 0;
@@ -164,6 +165,7 @@ public class UNO extends Application {
 	}
 
 	public static void checkHand() {
+		//TODO!
 		//cards in hand
 		player.getHand();
 		//points
@@ -216,6 +218,11 @@ public class UNO extends Application {
 		 * objective: the first player to play their hand in each round scores points
 		 * per card on their opponents hand.
 		 */
+		for(int i = 0; i < players.size(); i ++) {
+			if(players.get(i).getCurrentPoints() == 0) {
+				return true;
+			}
+		}
 		return false;
 	}
 
