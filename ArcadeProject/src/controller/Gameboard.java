@@ -23,6 +23,8 @@ public class Gameboard extends Application {
 	NormPiece tempPiece;
 	String turn = "Black Piece";
 	NormPiece killPiece;
+	static GridPane root = new GridPane();
+	final int size = 8;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -52,8 +54,6 @@ public class Gameboard extends Application {
 		pieces[5][5] = new NormPiece("Red Piece", "Piece", 5, 5);
 		pieces[5][7] = new NormPiece("Red Piece", "Piece", 7, 5);
 
-		GridPane root = new GridPane();
-		final int size = 8;
 		for (int row = 0; row < size; row++) {
 			for (int col = 0; col < size; col++) {
 				StackPane square = new StackPane();
@@ -68,9 +68,7 @@ public class Gameboard extends Application {
 				root.add(square, col, row);
 				if (pieces[row][col] != null) {
 					String pieceImage = pieces[row][col].getColor();
-//					
-//					Image image2 = new Image("file:Sprites/" + "Black Piece" + ".png", 100, 100, false, false);
-//					root.add(new ImageView(image2), col, row);
+
 					Image image = new Image("file:Sprites/" + pieceImage + ".png", 100, 100, false, false);
 					root.add(new ImageView(image), col, row);
 				}
@@ -217,6 +215,13 @@ public class Gameboard extends Application {
 						&& pieces[move.getRow() - 1][move.getCol() + 1] == null) {
 					tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() + 1));
 					attack = true;
+					if(pieces[7][0] ==pieces[7][0]) {
+						tempPiece.setKing(true);
+						//String pieceImage = pieces[7][7].getColor();
+
+						Image image = new Image("file:Sprites/" + "Red King" + ".png", 100, 100, false, false);
+						root.add(new ImageView(image), 7, 7);
+						
 				}
 				if (pieces[move.getRow()][move.getCol()] != null
 						&& pieces[move.getRow() - 1][move.getCol() - 1] == null) {
@@ -225,7 +230,16 @@ public class Gameboard extends Application {
 				}
 			}
 		}
-
+		
+	}
+//	public void KingMaker() {
+//		if (tempPiece.getColor() == "Red Piece") {
+//			if (pieces[move.getRow()][move.getCol()] != null
+//					&& pieces[move.getRow() - 1][move.getCol() + 1] == null) {
+//				tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() + 1));
+//				attack = true;
+//			}
+	
 		
 	}
 
