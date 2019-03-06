@@ -8,6 +8,7 @@ public class Player { 					//player creation
 	private Card[] hand = new Card[7];	//amount set per hand is seven
 	private int key;					//secret key
 	private Card card;
+	private int currentPoints;
 	
 	public Player(String name, Card[] hand, int key) {
 		setName(name);
@@ -58,6 +59,18 @@ public class Player { 					//player creation
 			}
 		}
 	}
+	
+	public int getCurrentPoints() {
+		return currentPoints;
+	}
+	public void setCurrentPoints(Card[] hand) {
+		//keeps track of the current points.
+		for(int i = 0; i < hand.length - 1; i ++ ) {
+			this.currentPoints += hand[i].getFaceValue();
+		}
+
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();

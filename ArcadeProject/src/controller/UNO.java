@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.TextField;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 import javafx.application.Application;
@@ -11,17 +12,19 @@ import javafx.stage.Stage;
 import model.Card;
 import model.Deck;
 import model.Player;
+import model.SpecialCards;
 
 //don't touch
 public class UNO extends Application {
 
 	public Random rng = new Random();// random for initial
 	public static Player player;// current player
-	public static Player[] players;// all the players or maybe an arrayList?
+//	public static Player[] players;// all the players or maybe an arrayList?
+	public static ArrayList<Player> players = new ArrayList<Player>();
 	public static Card card;// current card
 	public static Deck deck;// all 112 cards.
 //	public static Card[] discardPile; // discard pile
-	public static ArrayList<Card> discardPile;
+	public static ArrayList<Card> discardPile = new ArrayList<Card>();
 	public Button endTurn = new Button();
 	private static boolean quit = false;
 
@@ -32,12 +35,9 @@ public class UNO extends Application {
 	}
 
 	public static void mainMenu() {
-		createPlayers();
 		do {
 			playGame();
 		}while(quit);
-		// calls the game
-//		System.out.println("Welcome to UNO");
 
 	}
 
@@ -61,47 +61,72 @@ public class UNO extends Application {
 			key.setText("Your key.");
 			input2 = Integer.parseInt(key.getText());
 			player = new Player(name.getText(), input2);
-			players[count] = player;
+//			players[count] = player;
+			players.add(player);
 			count++;
 			correct = count == numOfPlayers;
 		} while (correct);
 
 	}
-
-	public static void playGame() {
+	
+	public static void deckInit() {
+		Random rng = new Random();
 		// new deck
 		deck = new Deck();
-		// shuffle deck
+		// shuffle deck 
 		deck.shuffleDeck();
 //		initial
-		discardPile.add(deck.getCards()[0]); 
-		// checks key for player
-		final PasswordField key = new PasswordField();
-		key.setText("Please enter your key");
-		int input = Integer.parseInt(key.getText());
-		if(input == player.getKey()) {
-		 drawHand(player);
-		}else {
-//		 throw and error and key again.
-				//do-while
-		}
-		//proceed to game
-		play();
-		/*
-		 * 1) player one enter's pin draws first player must lay a matching color down.
-		 * either by number, color, or word. 2) test box for 'UNO'? 3) on to the next
-		 * Player
-		 */
+		card = deck.getCards()[1];
+		discardPile.add(card); 
+	}
+	public static void playGame() {
+		boolean declaredWinner = false;
+		int count = 0;
+//		createPlayers();
+		player = new Player("Sammy", 2468);
+		players.add(player);
+		player = new Player("Howard", 1111);
+		players.add(player);
+		player = new Player("Lowzie", 4444);
+		players.add(player);
+		player = new Player("Izzie", 2222);
+		players.add(player);
+		deckInit();
+		do {
+			 int turn = (count % players.size());
+			 player = players.get(turn);
+			 drawHand(player);
+//			 playerKeyEntry(player);
+			 System.out.println(player.getName() + ", " + "hand " + Arrays.toString(player.getHand()));
+			count++;
+		}while(count < 50);
 
+	}
+	public static void playerKeyEntry(Player player) {
+		// checks key for player
+		int input = 0;
+		do {
+			final PasswordField key = new PasswordField();
+			key.setText("Please enter your key");
+			input = Integer.parseInt(key.getText());
+			if(input == player.getKey()) {
+				drawHand(player);
+			}
+		}while(input != player.getKey());
+		cardPlay();
 	}
 
 	public static void checkHand() {
-		//TODO
+		//cards in hand
+		player.getHand();
+		//points
+		player.getCurrentPoints();
+		//display hand only
 		
 	}
 
-	public static void play() {
-		//TODO
+	public static void cardPlay() {
+		//THIS METHOD NEEDS TO BE TESTED
 		// what options the player had to play
 		for (int i = 0; i < 7; i++) {
 			//if the card-color has the same color
@@ -119,6 +144,12 @@ public class UNO extends Application {
 				draw();//has the option of laying down the card
 			}
 			//special cards
+			if(((SpecialCards) player.getHand()[i]).getCardFace() == ((SpecialCards) currentCard()).getCardFace()) { /*problem with calling the special cards with custom methods through the card class. */
+				//has the option of laying down the card
+				discardPile.add(player.getHand()[i]);
+					//player must draw new card
+				draw();//has the option of laying down the card
+			}
 		}
 	}
 	
@@ -140,7 +171,6 @@ public class UNO extends Application {
 	}
 
 	public static void drawHand(Player player) {
-		//THROWS ERRORS ON 128
 		// every player initially gets a hand of seven cards
 		Card[] newHand = new Card[7];
 		for (int q = 0; q < 7; q++) {
