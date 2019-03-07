@@ -94,13 +94,13 @@ public class Deck {
 			for (int special = 0; special < 12; special++) {
 				int newnums = special + 100;// previous index
 				if (special == 0 || special < 4) {// only creating four of each
-					specialCards = new SpecialCards(CardColor.BLANK, CardFace.WILDDRAWFOUR);
+					specialCards = new SpecialCards(CardColor.BLANK, CardFace.WILDDRAWFOUR, false);
 					cards[newnums] = specialCards;
 				} else if (special == 4 || special < 8) {
-					specialCards = new SpecialCards(CardColor.BLANK, CardFace.WILD);
+					specialCards = new SpecialCards(CardColor.BLANK, CardFace.WILD, false);
 					cards[newnums] = specialCards;
 				} else if (special == 8 || special < 12) {
-					specialCards = new SpecialCards(CardColor.BLANK, CardFace.BLANK);
+					specialCards = new SpecialCards(CardColor.BLANK, CardFace.BLANK, false);
 					cards[newnums] = specialCards;
 				}
 

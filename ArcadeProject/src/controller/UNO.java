@@ -27,7 +27,7 @@ import model.SpecialCards;
 public class UNO extends Application {
 
 	public Random rng = new Random();// random for initial
-	public static Player player;// current player
+	public static Player currentPlayer;// current player
 //	public static Player[] players;// all the players or maybe an arrayList?
 	public static ArrayList<Player> players = new ArrayList<Player>();
 	public static Player winner;
@@ -110,9 +110,9 @@ public class UNO extends Application {
 			PasswordField key = new PasswordField();
 			key.setText("Your key.");
 			input2 = Integer.parseInt(key.getText());
-			player = new Player(name.getText(), input2);
+			currentPlayer = new Player(name.getText(), input2);
 //			players[count] = player;
-			players.add(player);
+			players.add(currentPlayer);
 			count++;
 			correct = count == numOfPlayers;
 		} while (correct);
@@ -134,25 +134,26 @@ public class UNO extends Application {
 		int count = 0;
 //		createPlayers();
 //		 tested out players
-		player = new Player("Sammy", 2468);
-		players.add(player);
-		player = new Player("Howard", 1111);
-		players.add(player);
-		player = new Player("Lowzie", 4444);
-		players.add(player);
-		player = new Player("Izzie", 2222);
-		players.add(player);
+		currentPlayer = new Player("Sammy", 2468);
+		players.add(currentPlayer);
+		currentPlayer = new Player("Howard", 1111);
+		players.add(currentPlayer);
+		currentPlayer = new Player("Lowzie", 4444);
+		players.add(currentPlayer);
+		currentPlayer = new Player("Izzie", 2222);
+		players.add(currentPlayer);
 		deckInit();
 		do {
+			currentPlayer = null;
 			int turn = (count % players.size());
-			player = players.get(turn);
-			System.out.println(player.getName());
-			drawHand(player);
+			currentPlayer = players.get(turn);
+			System.out.println(currentPlayer.getName());
+			drawHand(currentPlayer);
 //			playerKeyEntry(player);
 			cardPlay();
 //			 System.out.println(player.getName() + ", " + "hand " + Arrays.toString(player.getHand()));
 			count++;
-			declaredWinner = declareWinner();
+//			declaredWinner = declareWinner();
 		} while (!declaredWinner);
 
 	}
@@ -180,9 +181,9 @@ public class UNO extends Application {
 	public static void checkHand() {
 		// TODO!
 		// cards in hand
-		player.getHand();
+		currentPlayer.getHand();
 		// points
-		player.getCurrentPoints();
+		currentPlayer.getCurrentPoints();
 		// display hand only via gui
 	}
 
@@ -191,7 +192,7 @@ public class UNO extends Application {
 		currentCard = getCurrentCard();//retrieves the card the player needs to play
 		System.out.println("currentCard: " + currentCard);
 //		Arrays.toString(player.getHand());
-		System.out.println(Arrays.toString(player.getHand())); //shows the card
+		System.out.println("\n\n" + Arrays.toString(currentPlayer.getHand())); //shows the card
 	
 		// player must first select the card
 		
@@ -200,10 +201,10 @@ public class UNO extends Application {
 		// if the card isn't play-able then it won't be selectable
 		
 		// what options the player had to play
-		for (int i = 0; i < player.getHand().length; i++) {
+		for (int i = 0; i < currentPlayer.getHand().length; i++) {
 			// if the card-color has the same color
-			if (player.getHand()[i].getCardColor() == getCurrentCard().getCardColor()) {
-				player.getHand()[i].setPlayable(true); //allows the card to be playable
+			if (currentPlayer.getHand()[i].getCardColor() == getCurrentCard().getCardColor()) {
+				currentPlayer.getHand()[i].setPlayable(true); //allows the card to be playable
 				// first must display all options.
 				// maybe edit card class for isPlayable boolean and this method can check and
 				// set each boolean for the player to decide which to play.
@@ -211,42 +212,42 @@ public class UNO extends Application {
 				// if players have no cards to match
 				// re-draw once
 				// has the option of laying down the card
-				discardPile.add(player.getHand()[i]);
+				discardPile.add(currentPlayer.getHand()[i]);
 				// player must draw new card
 				draw();
 			}
 			// if the face value is the same integer
-			if (player.getHand()[i].getFaceValue() == getCurrentCard().getFaceValue()) {
-				player.getHand()[i].setPlayable(true);
+			if (currentPlayer.getHand()[i].getFaceValue() == getCurrentCard().getFaceValue()) {
+				currentPlayer.getHand()[i].setPlayable(true);
 				// has the option of laying down the card
-				discardPile.add(player.getHand()[i]);
+				discardPile.add(currentPlayer.getHand()[i]);
 				// player must draw new card
 				draw();// has the option of laying down the card
 			}
 			// special cards
 			if(getCurrentCard().getClass().getName() == "SpecialCards") {
 				System.out.println("nees some testing");
-				if ((player.getHand()[i]).getCardFace() == getCurrentCard().getCardFace()) { 
-					player.getHand()[i].setPlayable(true);/*
+				if ((currentPlayer.getHand()[i]).getCardFace() == getCurrentCard().getCardFace()) { 
+					currentPlayer.getHand()[i].setPlayable(true);/*
 				 * problem with calling the special cards with custom methods through the card
 				 * class.
 				 */
 					// has the option of laying down the card
-					discardPile.add(player.getHand()[i]);
+//					discardPile.add(player.getHand()[i]);
 					// player must draw new card
-					draw();// has the option of laying down the card
+//					draw();// has the option of laying down the card
 				}
 			}
 		}
-		System.out.println(Arrays.toString(player.getHand())); //shows the card
+		System.out.println(Arrays.toString(currentPlayer.getHand())); //shows the card
 	}
 
 	public static void draw() {
 		// this method needs to be tested
 		// check to see if they have the option to draw
-		for (int i = 0; i < player.getHand().length; i++) {
-			if (player.getHand()[i] == null) {
-				player.addCard(deck.getCards()[0]);
+		for (int i = 0; i < currentPlayer.getHand().length; i++) {
+			if (currentPlayer.getHand()[i] == null) {
+				currentPlayer.addCard(deck.getCards()[0]);
 			}
 		}
 	}
