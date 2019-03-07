@@ -150,11 +150,12 @@ public class UNO extends Application {
 			System.out.println(currentPlayer.getName());
 			drawHand(currentPlayer);
 //			playerKeyEntry(player);
-			cardPlay();
+//			cardPlay();
 //			 System.out.println(player.getName() + ", " + "hand " + Arrays.toString(player.getHand()));
 			count++;
 //			declaredWinner = declareWinner();
-		} while (!declaredWinner);
+		} while (count != players.size());
+		checkHand();
 
 	}
 
@@ -179,12 +180,10 @@ public class UNO extends Application {
 	}
 
 	public static void checkHand() {
-		// TODO!
-		// cards in hand
-		currentPlayer.getHand();
-		// points
-		currentPlayer.getCurrentPoints();
-		// display hand only via gui
+		for(Player player: players) {
+			System.out.println(Arrays.toString(player.getHand()));
+		}
+		System.out.println(deck.toString());
 	}
 
 	public static void cardPlay() {

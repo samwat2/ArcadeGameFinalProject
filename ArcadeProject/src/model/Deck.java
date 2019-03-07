@@ -8,7 +8,7 @@ import enums.CardColor;
 import enums.CardFace;
 
 public class Deck {
-	private final int amountOfCards = 112;// set of amount of cards the deck needs
+	private final int amountOfCards = 108;// set of amount of cards the deck needs
 	private Card[] cards = new Card[amountOfCards];// array for the normal card
 	private Card card;
 	private SpecialCards specialCards;// for the special cards
@@ -99,10 +99,7 @@ public class Deck {
 				} else if (special == 4 || special < 8) {
 					specialCards = new SpecialCards(CardColor.BLANK, CardFace.WILD, false);
 					cards[newnums] = specialCards;
-				} else if (special == 8 || special < 12) {
-					specialCards = new SpecialCards(CardColor.BLANK, CardFace.BLANK, false);
-					cards[newnums] = specialCards;
-				}
+				} 
 
 			}
 		}
