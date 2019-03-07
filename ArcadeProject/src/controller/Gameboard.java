@@ -214,14 +214,7 @@ public class Gameboard extends Application {
 						&& pieces[move.getRow() - 1][move.getCol() + 1] == null) {
 					tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() + 1));
 					attack = true;
-					if(pieces[7][0] ==pieces[7][0]) {
-						tempPiece.setKing(true);
-						
 
-						Image image = new Image("file:Sprites/" + "Red King" + ".png", 100, 100, false, false);
-						root.add(new ImageView(image), 7, 7);
-						
-				}
 				if (pieces[move.getRow()][move.getCol()] != null
 						&& pieces[move.getRow() - 1][move.getCol() - 1] == null) {
 					tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() - 1));
@@ -229,7 +222,7 @@ public class Gameboard extends Application {
 				}
 			}
 		}
-		
+	
 	}
 
 	
