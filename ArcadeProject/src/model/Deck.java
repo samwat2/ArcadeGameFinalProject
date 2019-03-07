@@ -18,22 +18,22 @@ public class Deck {
 		for (int i = 0; i < cards.length; i++) {
 			// second for-loop for red standard cards
 			for (int red = 0; red < 19; red++) {
-				card = new Card(CardColor.RED, (red % 10));
+				card = new Card(CardColor.RED, (red % 10), false);
 				cards[red] = card;
 			}
 			// third for-loop for blue standard cards
 			for (int blue = 0; blue < 19; blue++) {
-				card = new Card(CardColor.BLUE, (blue % 10));
+				card = new Card(CardColor.BLUE, (blue % 10), false);
 				cards[19 + blue] = card;
 			}
 			// fourth for-loop for green standard cards
 			for (int green = 0; green < 19; green++) {
-				card = new Card(CardColor.GREEN, (green % 10));
+				card = new Card(CardColor.GREEN, (green % 10), false);
 				cards[38 + green] = card;
 			}
 			// fifth for-loop for yellow standard cards
 			for (int yellow = 0; yellow < 19; yellow++) {
-				card = new Card(CardColor.YELLOW, (yellow % 10));
+				card = new Card(CardColor.YELLOW, (yellow % 10), false);
 				cards[57 + yellow] = card;
 			}
 			// sixth for-loop for skip special cards
@@ -41,16 +41,16 @@ public class Deck {
 				int newNumber = skip + 76;// number of places in array
 
 				if (skip == 0 || skip < 2) {// only creating two of each
-					specialCards = new SpecialCards(CardColor.RED, CardFace.SKIP);
+					specialCards = new SpecialCards(CardColor.RED, CardFace.SKIP, false);
 					cards[newNumber] = specialCards;
 				} else if (skip == 2 || skip < 4) {
-					specialCards = new SpecialCards(CardColor.BLUE, CardFace.SKIP);
+					specialCards = new SpecialCards(CardColor.BLUE, CardFace.SKIP, false);
 					cards[newNumber] = specialCards;
 				} else if (skip == 4 || skip < 6) {
-					specialCards = new SpecialCards(CardColor.GREEN, CardFace.SKIP);
+					specialCards = new SpecialCards(CardColor.GREEN, CardFace.SKIP, false);
 					cards[newNumber] = specialCards;
 				} else if (skip == 6 || skip <= 8) {
-					specialCards = new SpecialCards(CardColor.YELLOW, CardFace.SKIP);
+					specialCards = new SpecialCards(CardColor.YELLOW, CardFace.SKIP, false);
 					cards[newNumber] = specialCards;
 				}
 			}
@@ -59,16 +59,16 @@ public class Deck {
 				int newNum = reverse + 84;// previous index
 
 				if (reverse == 0 || reverse < 2) {// only creating two of each
-					specialCards = new SpecialCards(CardColor.RED, CardFace.REVERSE);
+					specialCards = new SpecialCards(CardColor.RED, CardFace.REVERSE, false);
 					cards[newNum] = specialCards;
 				} else if (reverse == 2 || reverse < 4) {
-					specialCards = new SpecialCards(CardColor.BLUE, CardFace.REVERSE);
+					specialCards = new SpecialCards(CardColor.BLUE, CardFace.REVERSE, false);
 					cards[newNum] = specialCards;
 				} else if (reverse == 4 || reverse < 6) {
-					specialCards = new SpecialCards(CardColor.GREEN, CardFace.REVERSE);
+					specialCards = new SpecialCards(CardColor.GREEN, CardFace.REVERSE, false);
 					cards[newNum] = specialCards;
 				} else if (reverse == 6 || reverse <= 8) {
-					specialCards = new SpecialCards(CardColor.YELLOW, CardFace.REVERSE);
+					specialCards = new SpecialCards(CardColor.YELLOW, CardFace.REVERSE, false);
 					cards[newNum] = specialCards;
 				}
 			}
@@ -77,16 +77,16 @@ public class Deck {
 				int newnum = draw + 92;// previous index
 
 				if (draw == 0 || draw < 2) {// only creating two of each
-					specialCards = new SpecialCards(CardColor.RED, CardFace.DRAW2);
+					specialCards = new SpecialCards(CardColor.RED, CardFace.DRAW2, false);
 					cards[newnum] = specialCards;
 				} else if (draw == 2 || draw < 4) {
-					specialCards = new SpecialCards(CardColor.BLUE, CardFace.DRAW2);
+					specialCards = new SpecialCards(CardColor.BLUE, CardFace.DRAW2, false);
 					cards[newnum] = specialCards;
 				} else if (draw == 4 || draw < 6) {
-					specialCards = new SpecialCards(CardColor.GREEN, CardFace.DRAW2);
+					specialCards = new SpecialCards(CardColor.GREEN, CardFace.DRAW2, false);
 					cards[newnum] = specialCards;
 				} else if (draw == 6 || draw <= 8) {
-					specialCards = new SpecialCards(CardColor.YELLOW, CardFace.DRAW2);
+					specialCards = new SpecialCards(CardColor.YELLOW, CardFace.DRAW2, false);
 					cards[newnum] = specialCards;
 				}
 			}

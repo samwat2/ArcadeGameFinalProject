@@ -1,7 +1,9 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,7 +24,6 @@ import model.Deck;
 import model.Player;
 import model.SpecialCards;
 
-
 public class UNO extends Application {
 
 	public Random rng = new Random();// random for initial
@@ -31,6 +32,7 @@ public class UNO extends Application {
 	public static ArrayList<Player> players = new ArrayList<Player>();
 	public static Player winner;
 	public static Card card;// current card
+	public static Card currentCard;
 	public static Deck deck;// all 112 cards.
 //	public static Card[] discardPile; // discard pile
 	public static ArrayList<Card> discardPile = new ArrayList<Card>();
@@ -42,11 +44,12 @@ public class UNO extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			draw .setOnAction(new EventHandler<ActionEvent>() {
+			draw.setOnAction(new EventHandler<ActionEvent>() {
 
 				@Override
 				public void handle(ActionEvent event) {
-					// This will have the player to draw a card form the draw pile, can only do once per turn
+					// This will have the player to draw a card form the draw pile, can only do once
+					// per turn
 
 				}
 			});
@@ -84,7 +87,7 @@ public class UNO extends Application {
 	public static void mainMenu() {
 		do {
 			playGame();
-		}while(quit);
+		} while (quit);
 
 	}
 
@@ -92,16 +95,16 @@ public class UNO extends Application {
 	public static void createPlayers() {
 		int input2, count = 0;
 		boolean correct = false;
-		//text-field for amount of players
+		// text-field for amount of players
 		final TextField amountOfPlayers = new TextField();
-		//text-field text
+		// text-field text
 		amountOfPlayers.setText("How many players will be joining?");
-		//gathered input
+		// gathered input
 		String input = amountOfPlayers.getText();
-		//parsed input
+		// parsed input
 		int numOfPlayers = Integer.parseInt(input);
 		do {
-			//player's info per player
+			// player's info per player
 			final TextField name = new TextField();
 			name.setText("Enter your name.");
 			PasswordField key = new PasswordField();
@@ -115,42 +118,51 @@ public class UNO extends Application {
 		} while (correct);
 
 	}
-	
+
 	public static void deckInit() {
 		// new deck
 		deck = new Deck();
-		// shuffle deck 
+		// shuffle deck
 		deck.shuffleDeck();
 //		initial
 		card = deck.getCards()[1];
-		discardPile.add(card); 
+		discardPile.add(card);
 	}
-	
+
 	public static void playGame() {
 		boolean declaredWinner = false;
 		int count = 0;
-		createPlayers();
-		//tested out players
-//		player = new Player("Sammy", 2468);
-//		players.add(player);
-//		player = new Player("Howard", 1111);
-//		players.add(player);
-//		player = new Player("Lowzie", 4444);
-//		players.add(player);
-//		player = new Player("Izzie", 2222);
-//		players.add(player);
+//		createPlayers();
+//		 tested out players
+		player = new Player("Sammy", 2468);
+		players.add(player);
+		player = new Player("Howard", 1111);
+		players.add(player);
+		player = new Player("Lowzie", 4444);
+		players.add(player);
+		player = new Player("Izzie", 2222);
+		players.add(player);
 		deckInit();
 		do {
-			 int turn = (count % players.size());
-			 player = players.get(turn);
-			 drawHand(player);
-			 playerKeyEntry(player);
+			int turn = (count % players.size());
+			player = players.get(turn);
+			System.out.println(player.getName());
+			drawHand(player);
+//			playerKeyEntry(player);
+			cardPlay();
 //			 System.out.println(player.getName() + ", " + "hand " + Arrays.toString(player.getHand()));
 			count++;
 			declaredWinner = declareWinner();
-		}while(!declaredWinner);
+		} while (!declaredWinner);
 
 	}
+
+	public static Card getCurrentCard() {//this method needs to be tested.
+		int index = discardPile.lastIndexOf(card);// gets the index of the last card added to the ArrayList
+		currentCard = discardPile.get(index);// sets the current card from the discard pile.
+		return currentCard;
+	}
+
 	public static void playerKeyEntry(Player player) {
 		// checks key for player
 		int input = 0;
@@ -158,83 +170,95 @@ public class UNO extends Application {
 			final PasswordField key = new PasswordField();
 			key.setText("Please enter your key");
 			input = Integer.parseInt(key.getText());
-			if(input == player.getKey()) {
+			if (input == player.getKey()) {
 				drawHand(player);
 			}
-		}while(input != player.getKey());
+		} while (input != player.getKey());
 		cardPlay();
 	}
 
 	public static void checkHand() {
-		//TODO!
-		//cards in hand
+		// TODO!
+		// cards in hand
 		player.getHand();
-		//points
+		// points
 		player.getCurrentPoints();
-		//display hand only via gui
+		// display hand only via gui
 	}
 
 	public static void cardPlay() {
-		//THIS METHOD NEEDS TO BE TESTED
-		//player must first select the card
+		// THIS METHOD NEEDS TO BE TESTED
+		currentCard = getCurrentCard();//retrieves the card the player needs to play
+		System.out.println("currentCard: " + currentCard);
+//		Arrays.toString(player.getHand());
+		System.out.println(Arrays.toString(player.getHand())); //shows the card
+	
+		// player must first select the card
 		
-			//then we must check to see if it is a legal move
-			//if the card isn't play-able then it won't be selectable
+		// then we must check to see if it is a legal move
+		
+		// if the card isn't play-able then it won't be selectable
+		
 		// what options the player had to play
-		for (int i = 0; i < 7; i++) {
-			//if the card-color has the same color
-			if(player.getHand()[i].getCardColor() == currentCard().getCardColor()) {
-				//first must display all options.
-					//maybe edit card class for isPlayable boolean and this method can check and set each boolean for the player to decide which to play.
-					//edit player class to have the ability to have many cards. 
-				//if players have no cards to match
-					//re-draw once
-				//has the option of laying down the card
+		for (int i = 0; i < player.getHand().length; i++) {
+			// if the card-color has the same color
+			if (player.getHand()[i].getCardColor() == getCurrentCard().getCardColor()) {
+				player.getHand()[i].setPlayable(true); //allows the card to be playable
+				// first must display all options.
+				// maybe edit card class for isPlayable boolean and this method can check and
+				// set each boolean for the player to decide which to play.
+				// edit player class to have the ability to have many cards.
+				// if players have no cards to match
+				// re-draw once
+				// has the option of laying down the card
 				discardPile.add(player.getHand()[i]);
-					//player must draw new card
+				// player must draw new card
 				draw();
 			}
-			//if the face value is the same integer
-			if (player.getHand()[i].getFaceValue() == currentCard().getFaceValue()) {
-				//has the option of laying down the card
+			// if the face value is the same integer
+			if (player.getHand()[i].getFaceValue() == getCurrentCard().getFaceValue()) {
+				player.getHand()[i].setPlayable(true);
+				// has the option of laying down the card
 				discardPile.add(player.getHand()[i]);
-					//player must draw new card
-				draw();//has the option of laying down the card
+				// player must draw new card
+				draw();// has the option of laying down the card
 			}
-			//special cards
-			if(((SpecialCards) player.getHand()[i]).getCardFace() == ((SpecialCards) currentCard()).getCardFace()) { /*problem with calling the special cards with custom methods through the card class. */
-				//has the option of laying down the card
-				discardPile.add(player.getHand()[i]);
-					//player must draw new card
-				draw();//has the option of laying down the card
+			// special cards
+			if(getCurrentCard().getClass().getName() == "SpecialCards") {
+				System.out.println("nees some testing");
+				if ((player.getHand()[i]).getCardFace() == getCurrentCard().getCardFace()) { 
+					player.getHand()[i].setPlayable(true);/*
+				 * problem with calling the special cards with custom methods through the card
+				 * class.
+				 */
+					// has the option of laying down the card
+					discardPile.add(player.getHand()[i]);
+					// player must draw new card
+					draw();// has the option of laying down the card
+				}
 			}
 		}
+		System.out.println(Arrays.toString(player.getHand())); //shows the card
 	}
-	
+
 	public static void draw() {
-		//this method needs to be tested
-		//check to see if they have the option to draw
-		for(int i = 0; i < player.getHand().length; i++ ) {
-			if(player.getHand()[i] == null) {
+		// this method needs to be tested
+		// check to see if they have the option to draw
+		for (int i = 0; i < player.getHand().length; i++) {
+			if (player.getHand()[i] == null) {
 				player.addCard(deck.getCards()[0]);
 			}
 		}
 	}
 
-	public static Card currentCard() {
-		//THIS METHOD NEEDS TO BE TESTED
-		// gets the current card in play for the discardPile
-		card = discardPile.get(discardPile.size()-1) != null ? null : null;
-		return card;
-	}
 
 	public static boolean declareWinner() {
 		/*
 		 * objective: the first player to play their hand in each round scores points
 		 * per card on their opponents hand.
 		 */
-		for(int i = 0; i < players.size(); i ++) {
-			if(players.get(i).getCurrentPoints() == 0) {
+		for (int i = 0; i < players.size(); i++) {
+			if (players.get(i).getCurrentPoints() == 0) {
 				winner = players.get(i);
 				return true;
 			}
