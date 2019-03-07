@@ -83,7 +83,7 @@ public class Gameboard extends Application {
 			int col = (int) (e.getX() / 100);
 			
 			if (tempPiece == null) {
-				// System.out.printf("%s %s\n", (int)(e.getX() / 100), (int)(e.getY() / 100));
+			
 				resetBackground(root, size);
 				if (pieces[row][col] != null) {
 					if (pieces[row][col].color.equals(turn))
@@ -103,7 +103,6 @@ public class Gameboard extends Application {
 							(int) (e.getY() / 100));
 
 					mattePane.setStyle("-fx-background-color: yellow;");
-					// mattePane.setBackground(background);
 					tempPiece = pieces[row][col];
 				}
 			} else {
@@ -215,14 +214,7 @@ public class Gameboard extends Application {
 						&& pieces[move.getRow() - 1][move.getCol() + 1] == null) {
 					tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() + 1));
 					attack = true;
-					if(pieces[7][0] ==pieces[7][0]) {
-						tempPiece.setKing(true);
-						//String pieceImage = pieces[7][7].getColor();
 
-						Image image = new Image("file:Sprites/" + "Red King" + ".png", 100, 100, false, false);
-						root.add(new ImageView(image), 7, 7);
-						
-				}
 				if (pieces[move.getRow()][move.getCol()] != null
 						&& pieces[move.getRow() - 1][move.getCol() - 1] == null) {
 					tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() - 1));
@@ -230,15 +222,9 @@ public class Gameboard extends Application {
 				}
 			}
 		}
-		
+	
 	}
-//	public void KingMaker() {
-//		if (tempPiece.getColor() == "Red Piece") {
-//			if (pieces[move.getRow()][move.getCol()] != null
-//					&& pieces[move.getRow() - 1][move.getCol() + 1] == null) {
-//				tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() + 1));
-//				attack = true;
-//			}
+
 	
 		
 	}
