@@ -112,6 +112,7 @@ public class UNO extends Application {
 			input2 = Integer.parseInt(key.getText());
 			currentPlayer = new Player(name.getText(), input2);
 //			players[count] = player;
+			currentPlayer.setHand(deck.retrieveInitialCards());
 			players.add(currentPlayer);
 			count++;
 			correct = count == numOfPlayers;
@@ -134,23 +135,27 @@ public class UNO extends Application {
 		int count = 0;
 //		createPlayers();
 //		 tested out players
+		deckInit();
 		currentPlayer = new Player("Sammy", 2468);
+		currentPlayer.setHand(deck.retrieveInitialCards());
 		players.add(currentPlayer);
 		currentPlayer = new Player("Howard", 1111);
+		currentPlayer.setHand(deck.retrieveInitialCards());
 		players.add(currentPlayer);
 		currentPlayer = new Player("Lowzie", 4444);
+		currentPlayer.setHand(deck.retrieveInitialCards());
 		players.add(currentPlayer);
 		currentPlayer = new Player("Izzie", 2222);
+		currentPlayer.setHand(deck.retrieveInitialCards());
 		players.add(currentPlayer);
-		deckInit();
 		do {
 			currentPlayer = null;
 			int turn = (count % players.size());
 			currentPlayer = players.get(turn);
 			System.out.println(currentPlayer.getName());
-			drawHand(currentPlayer);
-//			playerKeyEntry(player);
-//			cardPlay();
+//			playerKeyEntry(currentPlayer);
+//			legalMoves();
+			checkHand();
 //			 System.out.println(player.getName() + ", " + "hand " + Arrays.toString(player.getHand()));
 			count++;
 //			declaredWinner = declareWinner();
@@ -173,10 +178,10 @@ public class UNO extends Application {
 			key.setText("Please enter your key");
 			input = Integer.parseInt(key.getText());
 			if (input == player.getKey()) {
-				drawHand(player);
+				currentPlayer = player;
 			}
 		} while (input != player.getKey());
-		cardPlay();
+		legalMoves(); //makes cards that are legal to play play-able
 	}
 
 	public static void checkHand() {
@@ -186,55 +191,30 @@ public class UNO extends Application {
 		System.out.println(deck.toString());
 	}
 
-	public static void cardPlay() {
+	public static void legalMoves() {
 		// THIS METHOD NEEDS TO BE TESTED
 		currentCard = getCurrentCard();//retrieves the card the player needs to play
 		System.out.println("currentCard: " + currentCard);
 //		Arrays.toString(player.getHand());
 		System.out.println("\n\n" + Arrays.toString(currentPlayer.getHand())); //shows the card
-	
-		// player must first select the card
-		
-		// then we must check to see if it is a legal move
-		
-		// if the card isn't play-able then it won't be selectable
-		
-		// what options the player had to play
-		for (int i = 0; i < currentPlayer.getHand().length; i++) {
+
+		for (int i = 0; i < currentPlayer.getHand().length-1; i++) {
 			// if the card-color has the same color
 			if (currentPlayer.getHand()[i].getCardColor() == getCurrentCard().getCardColor()) {
-				currentPlayer.getHand()[i].setPlayable(true); //allows the card to be playable
-				// first must display all options.
-				// maybe edit card class for isPlayable boolean and this method can check and
 				// set each boolean for the player to decide which to play.
-				// edit player class to have the ability to have many cards.
-				// if players have no cards to match
-				// re-draw once
-				// has the option of laying down the card
-				discardPile.add(currentPlayer.getHand()[i]);
-				// player must draw new card
-				draw();
+				currentPlayer.getHand()[i].setPlayable(true); //allows the card to be playable
 			}
 			// if the face value is the same integer
 			if (currentPlayer.getHand()[i].getFaceValue() == getCurrentCard().getFaceValue()) {
+				// set each boolean for the player to decide which to play.
 				currentPlayer.getHand()[i].setPlayable(true);
-				// has the option of laying down the card
-				discardPile.add(currentPlayer.getHand()[i]);
-				// player must draw new card
-				draw();// has the option of laying down the card
 			}
 			// special cards
 			if(getCurrentCard().getClass().getName() == "SpecialCards") {
 				System.out.println("nees some testing");
 				if ((currentPlayer.getHand()[i]).getCardFace() == getCurrentCard().getCardFace()) { 
-					currentPlayer.getHand()[i].setPlayable(true);/*
-				 * problem with calling the special cards with custom methods through the card
-				 * class.
-				 */
-					// has the option of laying down the card
-//					discardPile.add(player.getHand()[i]);
-					// player must draw new card
-//					draw();// has the option of laying down the card
+					// set each boolean for the player to decide which to play.
+					currentPlayer.getHand()[i].setPlayable(true);
 				}
 			}
 		}
@@ -264,15 +244,6 @@ public class UNO extends Application {
 			}
 		}
 		return false;
-	}
-
-	public static void drawHand(Player player) {
-		// every player initially gets a hand of seven cards
-		Card[] newHand = new Card[7];
-		for (int q = 0; q < 7; q++) {
-			newHand[q] = deck.getCards()[q];
-		}
-		player.setHand(newHand);
 	}
 
 }
