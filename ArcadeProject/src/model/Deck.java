@@ -12,6 +12,7 @@ public class Deck {
 	private Card[] cards = new Card[amountOfCards];// array for the normal card
 	private Card card;
 	private SpecialCards specialCards;// for the special cards
+	private int count = 0;
 
 	public Deck() {
 		// first for-loop for the whole deck
@@ -173,6 +174,21 @@ public class Deck {
 		Collections.addAll(cardList, cards);// adds everything from our card array to the card ArrayList
 		Collections.shuffle(cardList);// SHUFFLE!!!
 		cards = cardList.toArray(new Card[cardList.size()]);// Returns the shuffled array to cards
+	}
+	
+	public Card[] retrieveInitialCards() {
+		Card[] hand = new Card[7];
+		for(int i = count; i < 7; i++ ) {
+			hand[count] = cards[count];
+			cards[count] = null;
+			count++;
+			System.out.println(count);
+		}
+		return hand;
+	}
+	
+	public boolean addCards() {
+		return false;
 	}
 
 	@Override

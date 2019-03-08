@@ -148,6 +148,13 @@ public class UNO extends Application {
 //			correct = count == numOfPlayers;
 //		} while (correct);
 		}
+
+			currentPlayer.setHand(deck.retrieveInitialCards());
+//			players.add(currentPlayer);
+			count++;
+			correct = count == numOfPlayers;
+//		} while (correct);
+
 	}
 
 	public static void deckInit() {
@@ -165,6 +172,7 @@ public class UNO extends Application {
 		int count = 0;
 //		createPlayers();
 //		 tested out players
+		deckInit();
 		currentPlayer = new Player("Sammy", 2468);
 		players.put(2468, currentPlayer);
 		currentPlayer = new Player("Howard", 1111);
@@ -182,6 +190,25 @@ public class UNO extends Application {
 		drawHand(currentPlayer);
 		playerKeyEntry(currentPlayer);
 //			cardPlay();
+		currentPlayer.setHand(deck.retrieveInitialCards());
+//		players.add(currentPlayer);
+		currentPlayer = new Player("Howard", 1111);
+		currentPlayer.setHand(deck.retrieveInitialCards());
+//		players.add(currentPlayer);
+		currentPlayer = new Player("Lowzie", 4444);
+		currentPlayer.setHand(deck.retrieveInitialCards());
+//		players.add(currentPlayer);
+		currentPlayer = new Player("Izzie", 2222);
+		currentPlayer.setHand(deck.retrieveInitialCards());
+//		players.add(currentPlayer);
+//		do {
+			currentPlayer = null;
+//			int turn = (count % players.size());
+			currentPlayer = players.get(turn);
+			System.out.println(currentPlayer.getName());
+//			playerKeyEntry(currentPlayer);
+//			legalMoves();
+			checkHand();
 //			 System.out.println(player.getName() + ", " + "hand " + Arrays.toString(player.getHand()));
 		count++;
 //			declaredWinner = declareWinner();
@@ -257,6 +284,16 @@ public class UNO extends Application {
 //		}while(input!=player.getKey());
 //
 //	cardPlay();
+		int input = 0;
+		do {
+			final PasswordField key = new PasswordField();
+			key.setText("Please enter your key");
+			input = Integer.parseInt(key.getText());
+			if (input == player.getKey()) {
+				currentPlayer = player;
+			}
+		} while (input != player.getKey());
+		legalMoves(); //makes cards that are legal to play play-able
 	}
 
 	public static void checkHand() {
@@ -266,7 +303,7 @@ public class UNO extends Application {
 		System.out.println(deck.toString());
 	}
 
-	public static void cardPlay() {
+	public static void legalMoves() {
 		// THIS METHOD NEEDS TO BE TESTED
 		currentCard = getCurrentCard();// retrieves the card the player needs to play
 		System.out.println("currentCard: " + currentCard);
@@ -286,22 +323,18 @@ public class UNO extends Application {
 				currentPlayer.getHand()[i].setPlayable(true); // allows the card to be playable
 				// first must display all options.
 				// maybe edit card class for isPlayable boolean and this method can check and
+		System.out.println("\n\n" + Arrays.toString(currentPlayer.getHand())); //shows the card
+			}
+		for (int i = 0; i < currentPlayer.getHand().length-1; i++) {
+			// if the card-color has the same color
+			if (currentPlayer.getHand()[i].getCardColor() == getCurrentCard().getCardColor()) {
 				// set each boolean for the player to decide which to play.
-				// edit player class to have the ability to have many cards.
-				// if players have no cards to match
-				// re-draw once
-				// has the option of laying down the card
-				discardPile.add(currentPlayer.getHand()[i]);
-				// player must draw new card
-				draw();
+				currentPlayer.getHand()[i].setPlayable(true); //allows the card to be playable
 			}
 			// if the face value is the same integer
 			if (currentPlayer.getHand()[i].getFaceValue() == getCurrentCard().getFaceValue()) {
+				// set each boolean for the player to decide which to play.
 				currentPlayer.getHand()[i].setPlayable(true);
-				// has the option of laying down the card
-				discardPile.add(currentPlayer.getHand()[i]);
-				// player must draw new card
-				draw();// has the option of laying down the card
 			}
 			// special cards
 			if (getCurrentCard().getClass().getName() == "SpecialCards") {
@@ -315,6 +348,9 @@ public class UNO extends Application {
 //					discardPile.add(player.getHand()[i]);
 					// player must draw new card
 //					draw();// has the option of laying down the card
+				if ((currentPlayer.getHand()[i]).getCardFace() == getCurrentCard().getCardFace()) { 
+					// set each boolean for the player to decide which to play.
+					currentPlayer.getHand()[i].setPlayable(true);
 				}
 			}
 		}
