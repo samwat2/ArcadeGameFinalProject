@@ -9,9 +9,9 @@ public class SpecialCards extends Card{
 	private CardFace cardFace;
 	private Random rng = new Random();
 	
-	public SpecialCards(CardColor cardColor, CardFace cardFace) {
+	public SpecialCards(CardColor cardColor, CardFace cardFace, boolean playable) {
 		//edit the zero because if it's special there is still a face value
-		super(cardColor, determineFaceValue(cardFace));
+		super(cardColor, determineFaceValue(cardFace), playable);
 		setCardFace(cardFace);
 	}
 	
@@ -41,6 +41,8 @@ public class SpecialCards extends Card{
 		builder.append(cardFace);
 		builder.append(", CardColor: ");
 		builder.append(getCardColor());
+		builder.append(", playable:");
+		builder.append(playable);
 		builder.append("]");
 		return builder.toString();
 	}

@@ -1,14 +1,27 @@
 package model;
 
 import enums.CardColor;
+import enums.CardFace;
 
 public class Card {
 	private CardColor cardColor;
 	private int faceValue;
+	protected boolean playable;
 	
-	public Card(CardColor cardColor, int faceValue) {
+	public Card(CardColor cardColor, int faceValue, boolean playable) {
 		setCardColor(cardColor);
 		setFaceValue(faceValue);
+		setPlayable(playable);
+	}
+
+
+	public boolean isPlayable() {
+		return playable;
+	}
+
+
+	public void setPlayable(boolean playable) {
+		this.playable = playable;
 	}
 
 
@@ -35,8 +48,15 @@ public class Card {
 		builder.append(cardColor);
 		builder.append(", faceValue=");
 		builder.append(faceValue);
+		builder.append(", playable=");
+		builder.append(playable);
 		builder.append("]");
 		return builder.toString();
+	}
+
+
+	public CardFace getCardFace() {
+		return getCardFace();
 	}
 	
 	
