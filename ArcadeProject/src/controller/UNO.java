@@ -187,7 +187,7 @@ public class UNO extends Application {
 	public static void playGame() {
 		boolean declaredWinner = false;
 		int count = 0;
-		createPlayers();
+//		createPlayers();
 //		 tested out players
 		testPlayers();
 		deckInit();
@@ -196,8 +196,8 @@ public class UNO extends Application {
 		int turn = (count % players.size());
 		currentPlayer = players.get(turn);
 //		System.out.println(currentPlayer.getName());
-		drawHand(currentPlayer);
-		playerKeyEntry(currentPlayer);
+//		drawHand(currentPlayer);
+//		playerKeyEntry(currentPlayer);
 //		cardPlay();
 		currentPlayer.setHand(deck.retrieveInitialCards());
 		legalMoves();
@@ -212,6 +212,11 @@ public class UNO extends Application {
 	public static void moves() {
 		//if the card is playable then this will happen
 			//all are selectable
+		for(Card playable : currentPlayer.getHand()) {
+			if(playable.isPlayable()){
+				System.out.println(playable);
+			}
+		}
 			//once played remove the card from players deck
 				//if special card then 
 					//skip count ++
@@ -223,6 +228,32 @@ public class UNO extends Application {
 					//draw2
 						//next player has to draw two cards
 		//some players may not have the option to play so they must draw or skip their turn
+	}
+	
+	public static void addingNormal() {
+		if(currentCard.getFaceValue() != 0) {
+			
+		}
+	}
+	
+	public static void skipCard(Card card) {
+		
+	}
+	
+	public static void reverseCard(Card card) {
+		
+	}
+	
+	public static void wildCard(Card card) {
+		
+	}
+	
+	public static void wild4Card(Card card) {
+		
+	}
+	
+	public static void draw2Card(Card card) {
+		
 	}
 
 	public static Card getCurrentCard() {// this method needs to be tested.
@@ -324,6 +355,7 @@ public class UNO extends Application {
 				
 				CardColor currentCardColor = getCurrentCard().getCardColor();
 				CardColor currentPlayerCardColor = currentPlayer.getHand().get(i).getCardColor();
+				
 				int currentCardValue = currentPlayer.getHand().get(i).getFaceValue();
 				int currentPlayerCardValue = getCurrentCard().getFaceValue();
 				
@@ -385,24 +417,24 @@ public class UNO extends Application {
 
 	public static void drawHand(Player player) {
 		// every player initially gets a hand of seven cards
-//		Card[] newHand = new Card[7];
-//		
-//		int x = -100;
-//		int y = -100;
-//		for (int q = 0; q < 7; q++) {
-////			newHand[q] = deck.getCards()[q];
-//			newHand[q] = deck.getCards().get(q);
-////			Image image = new Image("file:Sprites/" + deck.getCards()[q] +".png", 100, 100, false, false);
-////
-////			ImageView flipped = new ImageView(image);
-////			
-////			flipped.setTranslateX(x);
-////			flipped.setTranslateY(y);
-////			background.getChildren().add(flipped);
+		Card[] newHand = new Card[7];
+		
+		int x = -100;
+		int y = -100;
+		for (int q = 0; q < 7; q++) {
+//			newHand[q] = deck.getCards()[q];
+			newHand[q] = deck.getCards().get(q);
+//			Image image = new Image("file:Sprites/" + deck.getCards()[q] +".png", 100, 100, false, false);
+//
+//			ImageView flipped = new ImageView(image);
 //			
-//			x += 100;
-//			y += 100;
-//		}
+//			flipped.setTranslateX(x);
+//			flipped.setTranslateY(y);
+//			background.getChildren().add(flipped);
+			
+			x += 100;
+			y += 100;
+		}
 //		player.setHand(newHand);
 	}
 
