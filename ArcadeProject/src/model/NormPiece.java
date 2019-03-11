@@ -39,19 +39,30 @@ public boolean isHasMoved() {
 	public
 	ArrayList<Move> getMoves() {
 		ArrayList<Move> moves= new ArrayList<Move>();
-		if(getColor() == "Black Piece" || king == true) {
+		if(getColor() == "Black Piece") {
 		moves.add(new Move(getX()-1, getY()+1));
 		moves.add(new Move(getX()+1, getY()+1));	
 		moves.add(new Move(getX()-2, getY()+2));
 		moves.add(new Move(getX()+2, getY()+2));
+		if(getColor()== "Black Piece" && king == true) {
+			moves.add(new Move(getX()-1, getY()+1));
+			moves.add(new Move(getX()+1, getY()+1));
+			moves.add(new Move(getX()-1, getY()-1));
+			moves.add(new Move(getX()+1, getY()-1));
 		}
-		if(getColor() == "Red Piece" || king ==true ) {
+		}
+		if(getColor() == "Red Piece") {
 		moves.add(new Move(getX()-2, getY()-2));
 		moves.add(new Move(getX()+2, getY()-2));
 		moves.add(new Move(getX()-1, getY()-1));
 		moves.add(new Move(getX()+1, getY()-1));
+		if(getColor()== "Red Piece" && king == true) {
+			moves.add(new Move(getX()-1, getY()+1));
+			moves.add(new Move(getX()+1, getY()+1));
+			moves.add(new Move(getX()-1, getY()-1));
+			moves.add(new Move(getX()+1, getY()-1));
 
-
+		}
 		
 		
 		}

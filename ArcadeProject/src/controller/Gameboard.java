@@ -72,6 +72,7 @@ public class Gameboard extends Application {
 
 					Image image = new Image("file:Sprites/" + pieceImage + ".png", 100, 100, false, false);
 					root.add(new ImageView(image), col, row);
+					
 				}
 			}
 		}
