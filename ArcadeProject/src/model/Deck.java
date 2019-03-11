@@ -3,39 +3,38 @@ package model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 import enums.CardColor;
 import enums.CardFace;
 
 public class Deck {
+	
 	private final int amountOfCards = 108;// set of amount of cards the deck needs
-	private Card[] cards = new Card[amountOfCards];// array for the normal card
+	private ArrayList<Card> cards = new ArrayList<Card>(amountOfCards);
 	private Card card;
 	private SpecialCards specialCards;// for the special cards
-	private int count = 0;
 
 	public Deck() {
 		// first for-loop for the whole deck
-		for (int i = 0; i < cards.length; i++) {
+		for (int i = 0; i < 1; i++) {
 			// second for-loop for red standard cards
 			for (int red = 0; red < 19; red++) {
 				card = new Card(CardColor.RED, (red % 10), false);
-				cards[red] = card;
+				cards.add(card);
 			}
 			// third for-loop for blue standard cards
 			for (int blue = 0; blue < 19; blue++) {
 				card = new Card(CardColor.BLUE, (blue % 10), false);
-				cards[19 + blue] = card;
+				cards.add(card);
 			}
 			// fourth for-loop for green standard cards
 			for (int green = 0; green < 19; green++) {
 				card = new Card(CardColor.GREEN, (green % 10), false);
-				cards[38 + green] = card;
+				cards.add(card);
 			}
 			// fifth for-loop for yellow standard cards
 			for (int yellow = 0; yellow < 19; yellow++) {
 				card = new Card(CardColor.YELLOW, (yellow % 10), false);
-				cards[57 + yellow] = card;
+				cards.add(card);
 			}
 			// sixth for-loop for skip special cards
 			for (int skip = 0; skip < 8; skip++) {
@@ -43,63 +42,61 @@ public class Deck {
 
 				if (skip == 0 || skip < 2) {// only creating two of each
 					specialCards = new SpecialCards(CardColor.RED, CardFace.SKIP, false);
-					cards[newNumber] = specialCards;
+					cards.add(specialCards);
 				} else if (skip == 2 || skip < 4) {
 					specialCards = new SpecialCards(CardColor.BLUE, CardFace.SKIP, false);
-					cards[newNumber] = specialCards;
+					cards.add(specialCards);
 				} else if (skip == 4 || skip < 6) {
 					specialCards = new SpecialCards(CardColor.GREEN, CardFace.SKIP, false);
-					cards[newNumber] = specialCards;
+					cards.add(specialCards);
 				} else if (skip == 6 || skip <= 8) {
 					specialCards = new SpecialCards(CardColor.YELLOW, CardFace.SKIP, false);
-					cards[newNumber] = specialCards;
+					cards.add(specialCards);
 				}
 			}
 			// seventh for-loop for reverse special cards
 			for (int reverse = 0; reverse < 8; reverse++) {
 				int newNum = reverse + 84;// previous index
-
 				if (reverse == 0 || reverse < 2) {// only creating two of each
 					specialCards = new SpecialCards(CardColor.RED, CardFace.REVERSE, false);
-					cards[newNum] = specialCards;
+					cards.add(specialCards);
 				} else if (reverse == 2 || reverse < 4) {
 					specialCards = new SpecialCards(CardColor.BLUE, CardFace.REVERSE, false);
-					cards[newNum] = specialCards;
+					cards.add(specialCards);
 				} else if (reverse == 4 || reverse < 6) {
 					specialCards = new SpecialCards(CardColor.GREEN, CardFace.REVERSE, false);
-					cards[newNum] = specialCards;
+					cards.add(specialCards);
 				} else if (reverse == 6 || reverse <= 8) {
 					specialCards = new SpecialCards(CardColor.YELLOW, CardFace.REVERSE, false);
-					cards[newNum] = specialCards;
+					cards.add(specialCards);
 				}
 			}
 			// eighth for-loop for draw special cards
 			for (int draw = 0; draw < 8; draw++) {
 				int newnum = draw + 92;// previous index
-
 				if (draw == 0 || draw < 2) {// only creating two of each
 					specialCards = new SpecialCards(CardColor.RED, CardFace.DRAW2, false);
-					cards[newnum] = specialCards;
+					cards.add(specialCards);
 				} else if (draw == 2 || draw < 4) {
 					specialCards = new SpecialCards(CardColor.BLUE, CardFace.DRAW2, false);
-					cards[newnum] = specialCards;
+					cards.add(specialCards);
 				} else if (draw == 4 || draw < 6) {
 					specialCards = new SpecialCards(CardColor.GREEN, CardFace.DRAW2, false);
-					cards[newnum] = specialCards;
+					cards.add(specialCards);
 				} else if (draw == 6 || draw <= 8) {
 					specialCards = new SpecialCards(CardColor.YELLOW, CardFace.DRAW2, false);
-					cards[newnum] = specialCards;
+					cards.add(specialCards);
 				}
 			}
 			// final for-loop for wild, wild-draw-four, and blank
 			for (int special = 0; special < 12; special++) {
 				int newnums = special + 100;// previous index
 				if (special == 0 || special < 4) {// only creating four of each
-					specialCards = new SpecialCards(CardColor.BLANK, CardFace.WILDDRAWFOUR, false);
-					cards[newnums] = specialCards;
+					specialCards = new SpecialCards(CardColor.BLANK, CardFace.WILDDRAWFOUR, true);
+					cards.add(specialCards);
 				} else if (special == 4 || special < 8) {
-					specialCards = new SpecialCards(CardColor.BLANK, CardFace.WILD, false);
-					cards[newnums] = specialCards;
+					specialCards = new SpecialCards(CardColor.BLANK, CardFace.WILD, true);
+					cards.add(specialCards);
 				} 
 
 			}
@@ -108,61 +105,20 @@ public class Deck {
 		setCards(cards);// SETS DECK
 	}
 
-	public Deck(Card[] cards) {
+	public Deck(ArrayList<Card> cards) {
 		setCards(cards);
 	}
 
-	public Card[] getCards() {
+	public ArrayList<Card> getCards() {
 		return cards;
 	}
 
-	public void setCards(Card[] cards) {
-		int red = 0, blue = 0, green = 0, yellow = 0;
+	public void setCards(ArrayList<Card> cards2) {
 		// check to see if the array is at length of 112---> containing the required
-		if (cards.length > amountOfCards) {
-			System.out.println("you're cards aren't up to par");
-		}
-		// check to see blue card stack
-		for (int i = 0; i < cards.length; i++) {
-			if (cards[i].getCardColor().equals(CardColor.RED)) {
-				red++;
-//				System.out.println("red count: " + red);
-			}
-			if (cards[i].getCardColor().equals(CardColor.BLUE)) {
-				blue++;
-//				System.out.println("blue count: " + blue);
-			}
-			if (cards[i].getCardColor().equals(CardColor.GREEN)) {
-				green++;
-//				System.out.println("green count: " + green);
-			}
-			if (cards[i].getCardColor().equals(CardColor.YELLOW)) {
-				yellow++;
-//				System.out.println("yellow count: " + yellow);
-			}
-
-		}
-		// check to see red card stack
-		if (!(red == 25)) {
-//			System.out.println("lacking red yo!");
-
-		}
-		// check to see green card stack
-		if (!(green == 25)) {
-//			System.out.println("lacking blue yo!");
-
-		}
-		// check to see yellow card stack
-		if (!(yellow == 25)) {
-//			System.out.println("lacking yellow yo!");
-
-		}
-		// check to see blue card stack
-		if (!(blue == 25)) {
-//			System.out.println("lacking blue yo!");
-
-		}
-		this.cards = cards;
+//		if (cards2.size() > amountOfCards) {
+//			System.out.println("you're cards aren't up to par");
+//		}
+		this.cards = cards2;
 	}
 
 	public int getAmountOfCards() {
@@ -170,20 +126,16 @@ public class Deck {
 	}
 
 	public void shuffleDeck() {
-		List<Card> cardList = new ArrayList<Card>();// puts in arrayList
-		Collections.addAll(cardList, cards);// adds everything from our card array to the card ArrayList
-		Collections.shuffle(cardList);// SHUFFLE!!!
-		cards = cardList.toArray(new Card[cardList.size()]);// Returns the shuffled array to cards
+		Collections.shuffle(cards);// SHUFFLE!!!
 	}
 	
 	public Card[] retrieveInitialCards() {
 		Card[] hand = new Card[7];
-		for(int i = count; i < 7; i++ ) {
-			hand[count] = cards[count];
-			cards[count] = null;
-			count++;
-			System.out.println(count);
+		for(int i = 0; i < 7; i++ ) {
+			hand[i] = cards.get(i);
+			cards.remove(i);
 		}
+		setCards(cards);
 		return hand;
 	}
 	
@@ -195,7 +147,7 @@ public class Deck {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Deck [cards=");
-		builder.append(Arrays.toString(cards));
+		builder.append(Arrays.toString(cards.toArray()));
 		builder.append("]");
 		return builder.toString();
 	}

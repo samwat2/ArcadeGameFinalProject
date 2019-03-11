@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Random;
 
 import application.Main;
+import enums.CardColor;
+import enums.CardFace;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -27,18 +29,20 @@ import javafx.stage.Stage;
 import model.Card;
 import model.Deck;
 import model.Player;
+import model.SpecialCards;
 
 public class UNO extends Application {
 
 	public Random rng = new Random();// random for initial
 	public static Player currentPlayer;// current player
-//	public static Player[] players;// all the players or maybe an arrayList?
+
 //	public static ArrayList<Player> players = new ArrayList<Player>();
+
 	public static Player winner;
 	public static Card card;// current card
+	public static SpecialCards specialCards;
 	public static Card currentCard;
 	public static Deck deck;// all 112 cards.
-//	public static Card[] discardPile; // discard pile
 	public static ArrayList<Card> discardPile = new ArrayList<Card>();
 	private static Main main = new Main();
 	private static boolean quit = false;
@@ -142,17 +146,16 @@ public class UNO extends Application {
 			key.setText("Your key.");
 			input2 = Integer.parseInt(key.getText());
 			currentPlayer = new Player(name.getText(), input2);
-//			players[count] = player;
+
 			players.put(input2, currentPlayer);
-//			count++;
-//			correct = count == numOfPlayers;
-//		} while (correct);
 		}
 
 		currentPlayer.setHand(deck.retrieveInitialCards());
 //			players.add(currentPlayer);
 		count++;
 		correct = count == numOfPlayers;
+			currentPlayer.setHand(deck.retrieveInitialCards());
+
 //		} while (correct);
 
 	}
@@ -161,9 +164,14 @@ public class UNO extends Application {
 		// new deck
 		deck = new Deck();
 		// shuffle deck
+//		System.out.println(deck.toString());
+//		System.out.println(deck.getCards().size());
+		//initial
+//		card = deck.getCards().get(0);
+//		int index = deck.getCards().(106);
+//		System.out.println(index);
+//		card = deck.getCards().get(92);
 		deck.shuffleDeck();
-//		initial
-		card = deck.getCards()[1];
 		discardPile.add(card);
 	}
 
@@ -209,11 +217,16 @@ public class UNO extends Application {
 //			playerKeyEntry(currentPlayer);
 //			legalMoves();
 		checkHand();
+
+			System.out.println(currentPlayer.getName());
+//			playerKeyEntry(currentPlayer);
+			legalMoves();
+//			checkHand();
+			System.out.println(getCurrentCard().toString());
 //			 System.out.println(player.getName() + ", " + "hand " + Arrays.toString(player.getHand()));
 		count++;
 //			declaredWinner = declareWinner();
-//		} while (count != players.size());
-//		checkHand();
+
 
 	}
 
@@ -297,76 +310,66 @@ public class UNO extends Application {
 	}
 
 	public static void checkHand() {
-		for (Player player : players.values()) {
-			System.out.println(Arrays.toString(player.getHand()));
-		}
-		System.out.println(deck.toString());
+//		for(Player player: players) {
+//			System.out.println(player.getName());
+//		for (Player player : players.values()) {
+//			System.out.println(Arrays.toString(player.getHand()));
+//		}
+//		System.out.println(deck.toString());
+//		System.out.println(deck.getCards().size());
 	}
 
-	public static void legalMoves() {
-		// THIS METHOD NEEDS TO BE TESTED
-		currentCard = getCurrentCard();// retrieves the card the player needs to play
-		System.out.println("currentCard: " + currentCard);
-//		Arrays.toString(player.getHand());
-		System.out.println("\n\n" + Arrays.toString(currentPlayer.getHand())); // shows the card
+	
+		public static void legalMoves() {
+			// THIS METHOD NEEDS TO BE TESTED
+			currentCard = getCurrentCard();//retrieves the card the player needs to play
+//			System.out.println("currentCard: " + currentCard);
+//			System.out.println("\n\nOLD:" + Arrays.toString(currentPlayer.getHand())); //shows the card
 
-		// player must first select the card
-
-		// then we must check to see if it is a legal move
-
-		// if the card isn't play-able then it won't be selectable
-
-		// what options the player had to play
-		for (int i = 0; i < currentPlayer.getHand().length; i++) {
-			// if the card-color has the same color
-			if (currentPlayer.getHand()[i].getCardColor() == getCurrentCard().getCardColor()) {
-				currentPlayer.getHand()[i].setPlayable(true); // allows the card to be playable
-				// first must display all options.
-				// maybe edit card class for isPlayable boolean and this method can check and
-				System.out.println("\n\n" + Arrays.toString(currentPlayer.getHand())); // shows the card
-			}
-		}
-		for (int i = 0; i < currentPlayer.getHand().length - 1; i++) {
-			// if the card-color has the same color
-			if (currentPlayer.getHand()[i].getCardColor() == getCurrentCard().getCardColor()) {
+			for (int i = 0; i < currentPlayer.getHand().length-1; i++) {
+				
+				CardColor currentCardColor = getCurrentCard().getCardColor();
+				CardColor currentPlayerCardColor = currentPlayer.getHand()[i].getCardColor();
+				int currentCardValue = currentPlayer.getHand()[i].getFaceValue();
+				int currentPlayerCardValue = getCurrentCard().getFaceValue();
+				
+				// if the card-color has the same color
 				// set each boolean for the player to decide which to play.
-				currentPlayer.getHand()[i].setPlayable(true); // allows the card to be playable
-			}
-			// if the face value is the same integer
-			if (currentPlayer.getHand()[i].getFaceValue() == getCurrentCard().getFaceValue()) {
-				// set each boolean for the player to decide which to play.
-				currentPlayer.getHand()[i].setPlayable(true);
-			}
-			// special cards
-			if (getCurrentCard().getClass().getName() == "SpecialCards") {
-				System.out.println("nees some testing");
-				if ((currentPlayer.getHand()[i]).getCardFace() == getCurrentCard().getCardFace()) {
-					currentPlayer.getHand()[i].setPlayable(true);/*
-																	 * problem with calling the special cards with
-																	 * custom methods through the card class.
-																	 */
-					// has the option of laying down the card
-//					discardPile.add(player.getHand()[i]);
-					// player must draw new card
-//					draw();// has the option of laying down the card
-					if ((currentPlayer.getHand()[i]).getCardFace() == getCurrentCard().getCardFace()) {
-						// set each boolean for the player to decide which to play.
+				if (currentCardColor  == currentPlayerCardColor ) {
+					currentPlayer.getHand()[i].setPlayable(true); //allows the card to be playable
+				}
+				// if the face value is the same integer
+				if (currentCardValue == currentPlayerCardValue) {
+					if(currentCardValue <= 19 || currentPlayerCardValue <= 19) {
 						currentPlayer.getHand()[i].setPlayable(true);
 					}
 				}
+				// special cards
+				if((getCurrentCard().getClass().equals(SpecialCards.class)) && (currentPlayer.getHand()[i].getClass().equals(SpecialCards.class))) {
+					if ((currentCardColor == currentPlayerCardColor)) { 
+						currentPlayer.getHand()[i].setPlayable(true);
+					}
+					CardFace currentFace = (getCurrentCard().getCardFace());
+					CardFace currentPlayerFace = (currentPlayer.getHand()[i].getCardFace());
+					if(0 == currentFace.compareTo(currentPlayerFace)) {
+						currentPlayer.getHand()[i].setPlayable(true);
+					}
+				}  
 			}
 			System.out.println(Arrays.toString(currentPlayer.getHand())); // shows the card
 		}
-	}
+		
+
 
 	public static void draw() {
+		//CHECK LOGIC!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		// this method needs to be tested
 		// check to see if they have the option to draw
-		for (int i = 0; i < currentPlayer.getHand().length; i++) {
-			if (currentPlayer.getHand()[i] == null) {
-				currentPlayer.addCard(deck.getCards()[0]);
-			}
-		}
+//		for (int i = 0; i < currentPlayer.getHand().length; i++) {
+//			if (currentPlayer.getHand()[i] == null) {
+//				currentPlayer.addCard(deck.getCards());
+//			}
+//		}
 	}
 
 	public static boolean declareWinner() {
@@ -389,7 +392,8 @@ public class UNO extends Application {
 		int x = -100;
 		int y = -100;
 		for (int q = 0; q < 7; q++) {
-			newHand[q] = deck.getCards()[q];
+//			newHand[q] = deck.getCards()[q];
+//			newHand[q] = deck.getCards().get(q);
 //			Image image = new Image("file:Sprites/" + deck.getCards()[q] +".png", 100, 100, false, false);
 //
 //			ImageView flipped = new ImageView(image);
