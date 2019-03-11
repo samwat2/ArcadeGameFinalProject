@@ -28,13 +28,11 @@ public class UNO extends Application {
 
 	public Random rng = new Random();// random for initial
 	public static Player currentPlayer;// current player
-//	public static Player[] players;// all the players or maybe an arrayList?
 	public static ArrayList<Player> players = new ArrayList<Player>();
 	public static Player winner;
 	public static Card card;// current card
 	public static Card currentCard;
 	public static Deck deck;// all 112 cards.
-//	public static Card[] discardPile; // discard pile
 	public static ArrayList<Card> discardPile = new ArrayList<Card>();
 	public Button endTurn = new Button();
 	private static boolean quit = false;
@@ -111,7 +109,6 @@ public class UNO extends Application {
 			key.setText("Your key.");
 			input2 = Integer.parseInt(key.getText());
 			currentPlayer = new Player(name.getText(), input2);
-//			players[count] = player;
 			currentPlayer.setHand(deck.retrieveInitialCards());
 			players.add(currentPlayer);
 			count++;

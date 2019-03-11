@@ -182,7 +182,6 @@ public class Deck {
 			hand[count] = cards[count];
 			cards[count] = null;
 			count++;
-			System.out.println(count);
 		}
 		return hand;
 	}
