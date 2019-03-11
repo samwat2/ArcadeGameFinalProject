@@ -31,6 +31,7 @@ public class UNO extends Application {
 	public static ArrayList<Player> players = new ArrayList<Player>();
 	public static Player winner;
 	public static Card card;// current card
+	public static SpecialCards specialCards;
 	public static Card currentCard;
 	public static Deck deck;// all 112 cards.
 	public static ArrayList<Card> discardPile = new ArrayList<Card>();
@@ -121,9 +122,14 @@ public class UNO extends Application {
 		// new deck
 		deck = new Deck();
 		// shuffle deck
+//		System.out.println(deck.toString());
+//		System.out.println(deck.getCards().size());
+		//initial
+//		card = deck.getCards().get(0);
+//		int index = deck.getCards().(106);
+//		System.out.println(index);
+		card = deck.getCards().get(92);
 		deck.shuffleDeck();
-//		initial
-		card = deck.getCards()[1];
 		discardPile.add(card);
 	}
 
@@ -136,12 +142,15 @@ public class UNO extends Application {
 		currentPlayer = new Player("Sammy", 2468);
 		currentPlayer.setHand(deck.retrieveInitialCards());
 		players.add(currentPlayer);
+		currentPlayer = null;
 		currentPlayer = new Player("Howard", 1111);
 		currentPlayer.setHand(deck.retrieveInitialCards());
 		players.add(currentPlayer);
+		currentPlayer = null;
 		currentPlayer = new Player("Lowzie", 4444);
 		currentPlayer.setHand(deck.retrieveInitialCards());
 		players.add(currentPlayer);
+		currentPlayer = null;
 		currentPlayer = new Player("Izzie", 2222);
 		currentPlayer.setHand(deck.retrieveInitialCards());
 		players.add(currentPlayer);
@@ -151,13 +160,14 @@ public class UNO extends Application {
 			currentPlayer = players.get(turn);
 			System.out.println(currentPlayer.getName());
 //			playerKeyEntry(currentPlayer);
-//			legalMoves();
-			checkHand();
+			legalMoves();
+//			checkHand();
+			System.out.println(getCurrentCard().toString());
 //			 System.out.println(player.getName() + ", " + "hand " + Arrays.toString(player.getHand()));
 			count++;
 //			declaredWinner = declareWinner();
 		} while (count != players.size());
-		checkHand();
+//		checkHand();
 
 	}
 
@@ -183,9 +193,11 @@ public class UNO extends Application {
 
 	public static void checkHand() {
 		for(Player player: players) {
+			System.out.println(player.getName());
 			System.out.println(Arrays.toString(player.getHand()));
 		}
-		System.out.println(deck.toString());
+//		System.out.println(deck.toString());
+		System.out.println(deck.getCards().size());
 	}
 
 	public static void legalMoves() {
@@ -193,7 +205,7 @@ public class UNO extends Application {
 		currentCard = getCurrentCard();//retrieves the card the player needs to play
 		System.out.println("currentCard: " + currentCard);
 //		Arrays.toString(player.getHand());
-		System.out.println("\n\n" + Arrays.toString(currentPlayer.getHand())); //shows the card
+		System.out.println("\n\nOLD:" + Arrays.toString(currentPlayer.getHand())); //shows the card
 
 		for (int i = 0; i < currentPlayer.getHand().length-1; i++) {
 			// if the card-color has the same color
@@ -207,25 +219,30 @@ public class UNO extends Application {
 				currentPlayer.getHand()[i].setPlayable(true);
 			}
 			// special cards
-			if(getCurrentCard().getClass().getName() == "SpecialCards") {
-				System.out.println("nees some testing");
-				if ((currentPlayer.getHand()[i]).getCardFace() == getCurrentCard().getCardFace()) { 
+			if((getCurrentCard().getClass().equals(SpecialCards.class)) && (currentPlayer.getHand()[i].getClass().equals(SpecialCards.class))) {
+//				System.out.println("nees some testing");
+				//special cards can't tell the difference between them.
+				if (getCurrentCard().getCardColor() == (currentPlayer.getHand()[i].getCardColor())) { 
 					// set each boolean for the player to decide which to play.
 					currentPlayer.getHand()[i].setPlayable(true);
 				}
-			}
+				if((getCurrentCard().getCardFace() == currentPlayer.getHand()[i].getCardFace())) {
+					currentPlayer.getHand()[i].setPlayable(true);
+				}
+			}  
 		}
-		System.out.println(Arrays.toString(currentPlayer.getHand())); //shows the card
+		System.out.println("NEW:" + Arrays.toString(currentPlayer.getHand())); //shows the card
 	}
 
 	public static void draw() {
+		//CHECK LOGIC!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		// this method needs to be tested
 		// check to see if they have the option to draw
-		for (int i = 0; i < currentPlayer.getHand().length; i++) {
-			if (currentPlayer.getHand()[i] == null) {
-				currentPlayer.addCard(deck.getCards()[0]);
-			}
-		}
+//		for (int i = 0; i < currentPlayer.getHand().length; i++) {
+//			if (currentPlayer.getHand()[i] == null) {
+//				currentPlayer.addCard(deck.getCards());
+//			}
+//		}
 	}
 
 
