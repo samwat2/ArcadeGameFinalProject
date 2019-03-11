@@ -129,10 +129,10 @@ public class Deck {
 		Collections.shuffle(cards);// SHUFFLE!!!
 	}
 	
-	public Card[] retrieveInitialCards() {
-		Card[] hand = new Card[7];
+	public ArrayList<Card> retrieveInitialCards() {
+		ArrayList<Card> hand = new ArrayList<Card>(7);
 		for(int i = 0; i < 7; i++ ) {
-			hand[i] = cards.get(i);
+			hand.add(cards.get(i));
 			cards.remove(i);
 		}
 		setCards(cards);

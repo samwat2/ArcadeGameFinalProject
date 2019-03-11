@@ -1,16 +1,18 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Player { 					//player creation
 	
 	private String name;
-	private Card[] hand = new Card[7];	//amount set per hand is seven
+//	private Card[] hand = new Card[7];	//amount set per hand is seven
 	private int key;					//secret key
 	private Card card;
 	private int currentPoints;
+	private ArrayList<Card> hand = new ArrayList<Card>();
 	
-	public Player(String name, Card[] hand, int key) {
+	public Player(String name, ArrayList<Card> hand, int key) {
 		setName(name);
 		setKey(key);
 		setHand(hand);
@@ -30,11 +32,11 @@ public class Player { 					//player creation
 		this.name = name;
 	}
 
-	public Card[] getHand() {
+	public ArrayList<Card> getHand() {
 		return hand;
 	}
 
-	public void setHand(Card[] hand) {
+	public void setHand(ArrayList<Card> hand) {
 		this.hand = hand;
 	}
 
@@ -53,20 +55,16 @@ public class Player { 					//player creation
 		this.card = card;
 	}
 	public void addCard(Card card) {
-		for(int i = 0; i < hand.length; i ++) {
-			if(hand[i] == null) {
-				hand[i] = card;
-			}
-		}
+		hand.add(card);
 	}
 	
 	public int getCurrentPoints() {
 		return currentPoints;
 	}
-	public void setCurrentPoints(Card[] hand) {
+	public void setCurrentPoints(ArrayList<Card> hand) {
 		//keeps track of the current points.
-		for(int i = 0; i < hand.length - 1; i ++ ) {
-			this.currentPoints += hand[i].getFaceValue();
+		for(int i = 0; i < hand.size() - 1; i ++ ) {
+			this.currentPoints += hand.get(i).getFaceValue();
 		}
 
 	}
@@ -77,7 +75,7 @@ public class Player { 					//player creation
 		builder.append("Player [name=");
 		builder.append(name);
 		builder.append(", hand=");
-		builder.append(Arrays.toString(hand));
+		builder.append(hand.toString());
 		builder.append(", key=");
 		builder.append(key);
 		builder.append("]");
