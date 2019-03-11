@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
+import enums.CardColor;
+import enums.CardFace;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -203,35 +205,40 @@ public class UNO extends Application {
 	public static void legalMoves() {
 		// THIS METHOD NEEDS TO BE TESTED
 		currentCard = getCurrentCard();//retrieves the card the player needs to play
-		System.out.println("currentCard: " + currentCard);
-//		Arrays.toString(player.getHand());
-		System.out.println("\n\nOLD:" + Arrays.toString(currentPlayer.getHand())); //shows the card
+//		System.out.println("currentCard: " + currentCard);
+//		System.out.println("\n\nOLD:" + Arrays.toString(currentPlayer.getHand())); //shows the card
 
 		for (int i = 0; i < currentPlayer.getHand().length-1; i++) {
+			
+			CardColor currentCardColor = getCurrentCard().getCardColor();
+			CardColor currentPlayerCardColor = currentPlayer.getHand()[i].getCardColor();
+			int currentCardValue = currentPlayer.getHand()[i].getFaceValue();
+			int currentPlayerCardValue = getCurrentCard().getFaceValue();
+			
 			// if the card-color has the same color
-			if (currentPlayer.getHand()[i].getCardColor() == getCurrentCard().getCardColor()) {
-				// set each boolean for the player to decide which to play.
+			// set each boolean for the player to decide which to play.
+			if (currentCardColor  == currentPlayerCardColor ) {
 				currentPlayer.getHand()[i].setPlayable(true); //allows the card to be playable
 			}
 			// if the face value is the same integer
-			if (currentPlayer.getHand()[i].getFaceValue() == getCurrentCard().getFaceValue()) {
-				// set each boolean for the player to decide which to play.
-				currentPlayer.getHand()[i].setPlayable(true);
+			if (currentCardValue == currentPlayerCardValue) {
+				if(currentCardValue <= 19 || currentPlayerCardValue <= 19) {
+					currentPlayer.getHand()[i].setPlayable(true);
+				}
 			}
 			// special cards
 			if((getCurrentCard().getClass().equals(SpecialCards.class)) && (currentPlayer.getHand()[i].getClass().equals(SpecialCards.class))) {
-//				System.out.println("nees some testing");
-				//special cards can't tell the difference between them.
-				if (getCurrentCard().getCardColor() == (currentPlayer.getHand()[i].getCardColor())) { 
-					// set each boolean for the player to decide which to play.
+				if ((currentCardColor == currentPlayerCardColor)) { 
 					currentPlayer.getHand()[i].setPlayable(true);
 				}
-				if((getCurrentCard().getCardFace() == currentPlayer.getHand()[i].getCardFace())) {
+				CardFace currentFace = (getCurrentCard().getCardFace());
+				CardFace currentPlayerFace = (currentPlayer.getHand()[i].getCardFace());
+				if(0 == currentFace.compareTo(currentPlayerFace)) {
 					currentPlayer.getHand()[i].setPlayable(true);
 				}
 			}  
 		}
-		System.out.println("NEW:" + Arrays.toString(currentPlayer.getHand())); //shows the card
+//		System.out.println("NEW:" + Arrays.toString(currentPlayer.getHand())); //shows the card
 	}
 
 	public static void draw() {
