@@ -149,10 +149,10 @@ public class UNO extends Application {
 //		} while (correct);
 		}
 
-			currentPlayer.setHand(deck.retrieveInitialCards());
+		currentPlayer.setHand(deck.retrieveInitialCards());
 //			players.add(currentPlayer);
-			count++;
-			correct = count == numOfPlayers;
+		count++;
+		correct = count == numOfPlayers;
 //		} while (correct);
 
 	}
@@ -187,7 +187,7 @@ public class UNO extends Application {
 		int turn = (count % players.size());
 		currentPlayer = players.get(turn);
 //		System.out.println(currentPlayer.getName());
-		drawHand(currentPlayer);
+//		drawHand(currentPlayer);
 		playerKeyEntry(currentPlayer);
 //			cardPlay();
 		currentPlayer.setHand(deck.retrieveInitialCards());
@@ -202,13 +202,13 @@ public class UNO extends Application {
 		currentPlayer.setHand(deck.retrieveInitialCards());
 //		players.add(currentPlayer);
 //		do {
-			currentPlayer = null;
+		currentPlayer = null;
 //			int turn = (count % players.size());
-			currentPlayer = players.get(turn);
-			System.out.println(currentPlayer.getName());
+		currentPlayer = players.get(turn);
+		System.out.println(currentPlayer.getName());
 //			playerKeyEntry(currentPlayer);
 //			legalMoves();
-			checkHand();
+		checkHand();
 //			 System.out.println(player.getName() + ", " + "hand " + Arrays.toString(player.getHand()));
 		count++;
 //			declaredWinner = declareWinner();
@@ -293,7 +293,7 @@ public class UNO extends Application {
 				currentPlayer = player;
 			}
 		} while (input != player.getKey());
-		legalMoves(); //makes cards that are legal to play play-able
+		legalMoves(); // makes cards that are legal to play play-able
 	}
 
 	public static void checkHand() {
@@ -323,13 +323,14 @@ public class UNO extends Application {
 				currentPlayer.getHand()[i].setPlayable(true); // allows the card to be playable
 				// first must display all options.
 				// maybe edit card class for isPlayable boolean and this method can check and
-		System.out.println("\n\n" + Arrays.toString(currentPlayer.getHand())); //shows the card
+				System.out.println("\n\n" + Arrays.toString(currentPlayer.getHand())); // shows the card
 			}
-		for (int i = 0; i < currentPlayer.getHand().length-1; i++) {
+		}
+		for (int i = 0; i < currentPlayer.getHand().length - 1; i++) {
 			// if the card-color has the same color
 			if (currentPlayer.getHand()[i].getCardColor() == getCurrentCard().getCardColor()) {
 				// set each boolean for the player to decide which to play.
-				currentPlayer.getHand()[i].setPlayable(true); //allows the card to be playable
+				currentPlayer.getHand()[i].setPlayable(true); // allows the card to be playable
 			}
 			// if the face value is the same integer
 			if (currentPlayer.getHand()[i].getFaceValue() == getCurrentCard().getFaceValue()) {
@@ -348,13 +349,14 @@ public class UNO extends Application {
 //					discardPile.add(player.getHand()[i]);
 					// player must draw new card
 //					draw();// has the option of laying down the card
-				if ((currentPlayer.getHand()[i]).getCardFace() == getCurrentCard().getCardFace()) { 
-					// set each boolean for the player to decide which to play.
-					currentPlayer.getHand()[i].setPlayable(true);
+					if ((currentPlayer.getHand()[i]).getCardFace() == getCurrentCard().getCardFace()) {
+						// set each boolean for the player to decide which to play.
+						currentPlayer.getHand()[i].setPlayable(true);
+					}
 				}
 			}
+			System.out.println(Arrays.toString(currentPlayer.getHand())); // shows the card
 		}
-		System.out.println(Arrays.toString(currentPlayer.getHand())); // shows the card
 	}
 
 	public static void draw() {
@@ -395,7 +397,7 @@ public class UNO extends Application {
 //			flipped.setTranslateX(x);
 //			flipped.setTranslateY(y);
 //			background.getChildren().add(flipped);
-			
+
 			x += 100;
 			y += 100;
 		}
