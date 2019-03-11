@@ -157,6 +157,11 @@ public class UNO extends Application {
 
 			players.put(input2, currentPlayer);
 		}
+
+		currentPlayer.setHand(deck.retrieveInitialCards());
+//			players.add(currentPlayer);
+		count++;
+		correct = count == numOfPlayers;
 			currentPlayer.setHand(deck.retrieveInitialCards());
 
 //		} while (correct);
@@ -167,6 +172,7 @@ public class UNO extends Application {
 		// new deck
 		deck = new Deck();
 		// shuffle deck
+
 		deck.shuffleDeck();
 		card = deck.getCards().get(0);
 		discardPile.add(card);
@@ -203,6 +209,7 @@ public class UNO extends Application {
 		legalMoves();
 		moves();
 		System.out.println(getCurrentCard().toString());
+
 		count++;
 //			declaredWinner = declareWinner();
 
@@ -332,7 +339,7 @@ public class UNO extends Application {
 				currentPlayer = player;
 			}
 		} while (input != player.getKey());
-		legalMoves(); //makes cards that are legal to play play-able
+		legalMoves(); // makes cards that are legal to play play-able
 	}
 
 	public static void checkHand() {
@@ -342,9 +349,10 @@ public class UNO extends Application {
 //			System.out.println(Arrays.toString(player.getHand()));
 //		}
 //		System.out.println(deck.toString());
-		System.out.println(deck.getCards().size());
+//		System.out.println(deck.getCards().size());
 	}
 
+	
 		public static void legalMoves() {
 			// THIS METHOD NEEDS TO BE TESTED
 			currentCard = getCurrentCard();//retrieves the card the player needs to play
@@ -386,8 +394,9 @@ public class UNO extends Application {
 					}
 				}  
 			}
-//			System.out.println("NEW:" + Arrays.toString(currentPlayer.getHand())); //shows the card
+//			System.out.println(Arrays.toString(currentPlayer.getHand())); // shows the card
 		}
+		
 
 
 	public static void draw() {
@@ -423,7 +432,7 @@ public class UNO extends Application {
 		int y = -100;
 		for (int q = 0; q < 7; q++) {
 //			newHand[q] = deck.getCards()[q];
-			newHand[q] = deck.getCards().get(q);
+//			newHand[q] = deck.getCards().get(q);
 //			Image image = new Image("file:Sprites/" + deck.getCards()[q] +".png", 100, 100, false, false);
 //
 //			ImageView flipped = new ImageView(image);
@@ -431,7 +440,7 @@ public class UNO extends Application {
 //			flipped.setTranslateX(x);
 //			flipped.setTranslateY(y);
 //			background.getChildren().add(flipped);
-			
+
 			x += 100;
 			y += 100;
 		}
