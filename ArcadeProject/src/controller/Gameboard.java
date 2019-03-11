@@ -109,20 +109,30 @@ public class Gameboard extends Application {
 			} else {
 				if (getStackPaneFromGridPane(root, col, row).getStyle().equals("-fx-background-color: green;")) {
 					ImageView removeImage = getImageFromGridPane(root, col, row);
+					int x = 0;
+					int y = 0;
 //					if (removeImage != null) {
 						if(tempPiece.getColor() == "Red Piece" && col < tempPiece.getX()) {
 							removeImage = getImageFromGridPane(root, col + 1, row + 1);
+							x = col + 1;
+							y = row + 1;
 						}
 						if(tempPiece.getColor() == "Red Piece" && col > tempPiece.getX()) {
 							removeImage = getImageFromGridPane(root, col - 1 , row + 1);
+							x = col - 1;
+							x = row + 1;
 						}
 						if(tempPiece.getColor() == "Black Piece" && col > tempPiece.getX()) {
 							removeImage = getImageFromGridPane(root, col - 1 , row - 1);
+							x = col - 1;
+							y = row - 1;
 						}
 						if(tempPiece.getColor() == "Black Piece" && col < tempPiece.getX()) {
 							removeImage = getImageFromGridPane(root, col + 1 , row - 1);
+							x = col + 1;
+							y = row - 1;
 						}
-						if(removeImage != null) {
+						if(removeImage != null && pieces[y][x].getColor() != tempPiece.getColor()) {
 						root.getChildren().remove(removeImage);
 						}
 

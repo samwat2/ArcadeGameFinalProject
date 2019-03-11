@@ -50,8 +50,8 @@ public boolean isHasMoved() {
 		if(getColor() == "Black Piece") {
 		moves.add(new Move(getX()-1, getY()+1));
 		moves.add(new Move(getX()+1, getY()+1));	
-//		moves.add(new Move(getX()-2, getY()+2));
-//		moves.add(new Move(getX()+2, getY()+2));
+	moves.add(new Move(getX()-2, getY()+2));
+	moves.add(new Move(getX()+2, getY()+2));
 		if(getColor()== "Black Piece" && getY()==7) {
 			moves.add(new Move(getX()-1, getY()+1));
 			moves.add(new Move(getX()+1, getY()+1));
@@ -65,8 +65,8 @@ public boolean isHasMoved() {
 		}
 		}
 		if(getColor() == "Red Piece") {
-//		moves.add(new Move(getX()-2, getY()-2));
-//		moves.add(new Move(getX()+2, getY()-2));
+		moves.add(new Move(getX()-2, getY()-2));
+		moves.add(new Move(getX()+2, getY()-2));
 		moves.add(new Move(getX()-1, getY()-1));
 		moves.add(new Move(getX()+1, getY()-1));
 		if(getColor()== "Red Piece" && getY()==0) {
