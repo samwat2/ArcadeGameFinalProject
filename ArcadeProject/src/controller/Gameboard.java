@@ -72,7 +72,6 @@ public class Gameboard extends Application {
 
 					Image image = new Image("file:Sprites/" + pieceImage + ".png", 100, 100, false, false);
 					root.add(new ImageView(image), col, row);
-					
 				}
 			}
 		}
@@ -95,7 +94,7 @@ public class Gameboard extends Application {
 								if (getStackPaneFromGridPane(root, move.getCol(), move.getRow()) != null) {
 									if (pieces[move.getRow()][move.getCol()] == null
 											|| (pieces[move.getRow()][move.getCol()] != null
-													&& !pieces[move.getRow()][move.getCol()].getColor().equals(turn))) {
+													&& pieces[move.getRow()][move.getCol()].getColor().equals(turn))) {
 										getStackPaneFromGridPane(root, move.getCol(), move.getRow())
 												.setStyle("-fx-background-color: green;");
 									}
@@ -103,17 +102,31 @@ public class Gameboard extends Application {
 							}
 					StackPane mattePane = (StackPane) getStackPaneFromGridPane(root, (int) (e.getX() / 100),
 							(int) (e.getY() / 100));
-
+					
 					mattePane.setStyle("-fx-background-color: yellow;");
 					tempPiece = pieces[row][col];
 				}
 			} else {
 				if (getStackPaneFromGridPane(root, col, row).getStyle().equals("-fx-background-color: green;")) {
 					ImageView removeImage = getImageFromGridPane(root, col, row);
-					if (removeImage != null) {
+//					if (removeImage != null) {
+						if(tempPiece.getColor() == "Red Piece" && col < tempPiece.getX()) {
+							removeImage = getImageFromGridPane(root, col + 1, row + 1);
+						}
+						if(tempPiece.getColor() == "Red Piece" && col > tempPiece.getX()) {
+							removeImage = getImageFromGridPane(root, col - 1 , row + 1);
+						}
+						if(tempPiece.getColor() == "Black Piece" && col > tempPiece.getX()) {
+							removeImage = getImageFromGridPane(root, col - 1 , row - 1);
+						}
+						if(tempPiece.getColor() == "Black Piece" && col < tempPiece.getX()) {
+							removeImage = getImageFromGridPane(root, col + 1 , row - 1);
+						}
+						if(removeImage != null) {
 						root.getChildren().remove(removeImage);
+						}
 
-					}
+//					}
 					for (int i = 0; i <= 7; i++) {
 						for (int j = 0; j <= 7; j++) {
 							if (pieces[i][j] == tempPiece) {
