@@ -18,6 +18,7 @@ import model.Move;
 import model.NormPiece;
 import model.Pieces;
 
+
 public class Gameboard extends Application {
 	NormPiece[][] pieces = new NormPiece[8][8];
 	NormPiece tempPiece;
