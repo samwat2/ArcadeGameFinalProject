@@ -221,9 +221,8 @@ public class UNO extends Application {
 		deck.shuffleDeck();
 		card = deck.getCards().get(0);
 		discardPile.add(card);
-
 		Image image1 = new Image("file:Sprites/RED 1.png", 100, 100, false, false);
-		
+			
 		ImageView start = new ImageView(image1);
 
 		background.getChildren().add(start);
@@ -359,8 +358,8 @@ public class UNO extends Application {
 				int input2 = Integer.parseInt(input);
 				if (input2 == player.getKey()) {
 					currentPlayer.setHand(deck.retrieveInitialCards());
-//					drawHand(player);
 					legalMoves();
+					checkHand();
 					moves();
 					no.setVisible(false);
 
@@ -419,9 +418,9 @@ public class UNO extends Application {
 	}
 
 	public static void checkHand() {
-
-		for (Player player : players.values()) {
-			System.out.println(player.getHand().toString());
+		
+		for (Card card: currentPlayer.getHand()) {
+			Image image1 = new Image("file:Sprites/" + card.toString() + ".png", 100, 100, false, false);
 		}
 //		System.out.println(deck.toString());
 //		System.out.println(deck.getCards().size());
