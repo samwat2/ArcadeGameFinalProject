@@ -6,14 +6,22 @@ public class NormPiece extends Pieces {
 	private boolean hasMoved;
 	private boolean validMove;
 	private boolean king = false;
-	private boolean attack = false;
+	private boolean attackLeft = false;
+	private boolean attackRight = false;
 
-	public boolean isAttack() {
-		return attack;
+	public boolean getAttackRight() {
+		return attackRight;
 	}
 
-	public void setAttack(boolean attack) {
-		this.attack = attack;
+	public void setAttackRight(boolean attack) {
+		this.attackRight = attack;
+	}
+	public boolean getAttackLeft() {
+		return attackLeft;
+	}
+
+	public void setAttackLeft(boolean attack) {
+		this.attackLeft = attack;
 	}
 
 	public NormPiece(String color, String type, int x, int y) {
@@ -55,8 +63,8 @@ public class NormPiece extends Pieces {
 		if (getColor() == "Black Piece") {
 			moves.add(new Move(getX() - 1, getY() + 1));
 			moves.add(new Move(getX() + 1, getY() + 1));
-			moves.add(new Move(getX() - 2, getY() + 2));
-			moves.add(new Move(getX() + 2, getY() + 2));
+//			moves.add(new Move(getX() - 2, getY() + 2));
+//			moves.add(new Move(getX() + 2, getY() + 2));
 			if (getColor() == "Black Piece" && getY() == 7 || getKing()) {
 				setKing(true);
 //				moves.add(new Move(getX() - 1, getY() + 1));
@@ -64,15 +72,17 @@ public class NormPiece extends Pieces {
 				moves.add(new Move(getX() - 1, getY() - 1));
 				moves.add(new Move(getX() + 1, getY() - 1));
 			}
-			if (getColor() == "Black Piece" && attack == true) {
-				moves.add(new Move(getX() - 2, getY() + 2));
+			if(getColor() == "Black Piece" && attackRight == true) {
 				moves.add(new Move(getX() + 2, getY() + 2));
-
 			}
+			if(getColor() == "Black Piece" && attackLeft == true) {
+				moves.add(new Move(getX() - 2, getY() + 2));
+			}
+			
 		}
 		if (getColor() == "Red Piece") {
-			moves.add(new Move(getX() - 2, getY() - 2));
-			moves.add(new Move(getX() + 2, getY() - 2));
+//			moves.add(new Move(getX() - 2, getY() - 2));
+//			moves.add(new Move(getX() + 2, getY() - 2));
 			moves.add(new Move(getX() - 1, getY() - 1));
 			moves.add(new Move(getX() + 1, getY() - 1));
 			if (getColor() == "Red Piece" && getY() == 0 || getKing()) {
@@ -83,7 +93,13 @@ public class NormPiece extends Pieces {
 //				moves.add(new Move(getX() + 1, getY() - 1));
 
 			}
-
+			if(getColor() == "Red Piece" && attackRight == true) {
+				moves.add(new Move(getX() + 2, getY() - 2));
+			}
+			if(getColor() == "Red Piece" && attackLeft == true) {
+				moves.add(new Move(getX() - 2, getY() - 2));
+			}
+			
 		}
 
 		return moves;

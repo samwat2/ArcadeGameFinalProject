@@ -84,6 +84,8 @@ public class Gameboard extends Application {
 
 			if (tempPiece == null) {
 
+				tempPiece = pieces[row][col];
+				canAttack(pieces, tempPiece);
 				resetBackground(root, size);
 				if (pieces[row][col] != null) {
 					if (pieces[row][col].color.equals(turn))
@@ -103,7 +105,6 @@ public class Gameboard extends Application {
 //							(int) (e.getY() / 100));
 //
 //					mattePane.setStyle("-fx-background-color: yellow;");
-					tempPiece = pieces[row][col];
 				}
 			} else {
 				if (getStackPaneFromGridPane(root, col, row).getStyle().equals("-fx-background-color: green;")) {
@@ -138,6 +139,8 @@ public class Gameboard extends Application {
 							}
 						}
 					}
+					tempPiece.setAttackRight(false);
+					tempPiece.setAttackLeft(false);
 
 //					}
 					for (int i = 0; i <= 7; i++) {
@@ -222,33 +225,33 @@ public class Gameboard extends Application {
 		return null;
 	}
 
-	private static void canAttack(NormPiece[][] pieces, NormPiece tempPiece) {
-		boolean attack = false;
+	private static void canAttack(NormPiece[][] pieces, NormPiece tempPiece){
+		
 		for (Move move : tempPiece.getMoves()) {
-			if (tempPiece.getColor() == "Black Piece") {
+			if (tempPiece.getColor() == "Black Piece" && move.getCol() < 7 && move.getCol() > 0 && move.getRow() < 7 && move.getRow() > 0) {
 				if (pieces[move.getRow()][move.getCol()] != null
 						&& pieces[move.getRow() + 1][move.getCol() + 1] == null) {
-					tempPiece.getMoves().add(new Move(move.getRow() + 1, move.getCol() + 1));
-					attack = true;
+//					tempPiece.getMoves().add(new Move(move.getRow() + 1, move.getCol() + 1));
+					tempPiece.setAttackRight(true);
 				}
 				if (pieces[move.getRow()][move.getCol()] != null
 						&& pieces[move.getRow() + 1][move.getCol() - 1] == null) {
-					tempPiece.getMoves().add(new Move(move.getRow() + 1, move.getCol() - 1));
-					attack = true;
+//					tempPiece.getMoves().add(new Move(move.getRow() + 1, move.getCol() - 1));
+					tempPiece.setAttackLeft(true);
 				}
 			}
-			if (tempPiece.getColor() == "Red Piece") {
+			if (tempPiece.getColor() == "Red Piece" && move.getCol() < 7 && move.getCol() > 0 && move.getRow() < 7 && move.getRow() > 0) {
 				if (pieces[move.getRow()][move.getCol()] != null
 						&& pieces[move.getRow() - 1][move.getCol() + 1] == null) {
-					tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() + 1));
-					attack = true;
-
-					if (pieces[move.getRow()][move.getCol()] != null
-							&& pieces[move.getRow() - 1][move.getCol() - 1] == null) {
-						tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() - 1));
-						attack = true;
-					}
+//					tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() + 1));
+					tempPiece.setAttackRight(true);
 				}
+				if (pieces[move.getRow()][move.getCol()] != null
+						&& pieces[move.getRow() - 1][move.getCol() - 1] == null) {
+//						tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() - 1));
+					tempPiece.setAttackLeft(true);
+				}
+
 			}
 
 		}
