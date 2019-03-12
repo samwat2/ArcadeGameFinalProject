@@ -135,33 +135,15 @@ public class UNO extends Application {
 		Label label1 = new Label("How Many Players");
 		TextField textField = new TextField();
 		Button submit = new Button("Submit");
-		Label alert = new Label("Must be a number");
 
 		submit.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
 			public void handle(ActionEvent event) {
-				try {
-					int count = 0;
-					int newField = Integer.parseInt(textField.getText());
-					for (int i = 0; i < newField; i++) {
-						TextField name = new TextField();
-			            name.setText("Enter your name.");
-			            PasswordField key = new PasswordField();
-			            key.setText("Your key.");
-			            int input2 = Integer.parseInt(key.getText());
-			            currentPlayer = new Player(name.getText(), input2, count);
-
-			            players.put(input2, currentPlayer);
-			            count++;
-					}
-				} catch (NumberFormatException e) {
-					alert.setVisible(true);
-				}
+				playerInfo(textField);
 			}
 		});
 
-		background.getChildren().add(alert);
 
 		HBox secondaryLayout = new HBox();
 
@@ -183,6 +165,51 @@ public class UNO extends Application {
 		newWindow.setAlwaysOnTop(true);
 		newWindow.show();
 
+	}
+	
+	public static void playerInfo(TextField t) {
+		Label alert = new Label("Must be a number");
+		try {
+			Stage primaryStage = new Stage();
+			int count = 0;
+			int newField = Integer.parseInt(t.getText());
+			for (int i = 0; i < newField; i++) {
+				Label name = new Label("Enter your Name");
+				TextField text = new TextField();
+				Label password = new Label("Enter your key");
+				PasswordField key = new PasswordField();	
+				Button submit = new Button("Submit");
+//	            name.setText("Enter your name.");
+//	            key.setText("Your key.");
+				
+				HBox secondaryLayout = new HBox();
+
+				secondaryLayout.setSpacing(10);
+				secondaryLayout.getChildren().addAll(name, text, password, key);
+				Scene secondScene = new Scene(secondaryLayout, 700, 100);
+				Stage newWindow = new Stage();
+				newWindow.setTitle("Name");
+				newWindow.setScene(secondScene);
+				newWindow.initModality(Modality.WINDOW_MODAL);
+
+				newWindow.initOwner(primaryStage);
+				newWindow.setX(800);
+				newWindow.setY(100);
+				newWindow.setResizable(false);
+
+				secondaryLayout.getChildren().add(submit);
+				
+	            int input2 = Integer.parseInt(key.getText());
+	            currentPlayer = new Player(name.getText(), input2, count);
+
+	            players.put(input2, currentPlayer);
+	            count++;
+	            
+			}
+		} catch (NumberFormatException e) {
+			alert.setVisible(true);
+		}
+		background.getChildren().add(alert);
 	}
 
 	public static void deckInit() {
@@ -235,9 +262,6 @@ public class UNO extends Application {
 		deckInit();
 //		turn();
 		playerKeyEntry(currentPlayer);
-//		currentPlayer.setHand(deck.retrieveInitialCards());
-		legalMoves();
-		moves();
 //		System.out.println(getCurrentCard().toString());
 		if (reverse) {
 			turnCount--;
@@ -331,7 +355,10 @@ public class UNO extends Application {
 				String input = textField.getText();
 				int input2 = Integer.parseInt(input);
 				if (input2 == player.getKey()) {
-					drawHand(player);
+//					drawHand(player);
+					currentPlayer.setHand(deck.retrieveInitialCards());
+					legalMoves();
+					moves();
 					no.setVisible(false);
 				} else {
 					no.setVisible(true);
@@ -339,6 +366,7 @@ public class UNO extends Application {
 			}
 		});
 
+		no.setVisible(true);
 		background.getChildren().add(no);
 
 		HBox secondaryLayout = new HBox();
@@ -358,7 +386,7 @@ public class UNO extends Application {
 
 		secondaryLayout.getChildren().add(submit);
 
-		newWindow.setAlwaysOnTop(true);
+//		newWindow.setAlwaysOnTop(true);
 		newWindow.show();
 
 //		label1.setTranslateX(-170);
