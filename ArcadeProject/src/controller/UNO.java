@@ -149,9 +149,12 @@ public class UNO extends Application {
 					for (int i = 0; i < newField; i++) {
 						TextField name = new TextField();
 			            name.setText("Enter your name.");
-			            PasswordField key = new PasswordField();
-			            key.setText("Your key.");
-			            int input2 = Integer.parseInt(key.getText());
+			            int input2;
+			            do {
+			            	PasswordField key = new PasswordField();
+			            	key.setText("Your key.");
+			            	input2 = Integer.parseInt(key.getText());
+			            }while(input2 < 4);
 			            currentPlayer = new Player(name.getText(), input2, count);
 
 			            players.put(input2, currentPlayer);
@@ -195,11 +198,11 @@ public class UNO extends Application {
 		card = deck.getCards().get(0);
 		discardPile.add(card);
 
-//		Image image1 = new Image("file:Sprites/" + card + ".png", 100, 100, false, false);
-//		
-//		ImageView start = new ImageView(image1);
+		Image image1 = new Image("file:Sprites/" + card + ".png", 100, 100, false, false);
+		
+		ImageView start = new ImageView(image1);
 
-//		background.getChildren().add(start);
+		background.getChildren().add(start);
 
 	}
 
@@ -254,6 +257,7 @@ public class UNO extends Application {
 		for (int i = 0; i < currentPlayer.getHand().size(); i++) {
 			if (currentPlayer.getHand().get(i).isPlayable()) {
 				// display cards
+				
 				// if selected then make the boolean false;
 				// event listener
 				boolean played = currentPlayer.getHand().get(i).isPlayable() == false;
@@ -402,10 +406,7 @@ public class UNO extends Application {
 	}
 
 	public static void legalMoves() {
-		// THIS METHOD NEEDS TO BE TESTED
 		currentCard = getCurrentCard();// retrieves the card the player needs to play
-//			System.out.println("currentCard: " + currentCard);
-//			System.out.println("\n\nOLD:" + Arrays.toString(currentPlayer.getHand())); //shows the card
 
 		for (int i = 0; i < currentPlayer.getHand().size() - 1; i++) {
 
@@ -444,10 +445,6 @@ public class UNO extends Application {
 	}
 
 	public static boolean declareWinner() {
-		/*
-		 * objective: the first player to play their hand in each round scores points
-		 * per card on their opponents hand.
-		 */
 		for (int i = 0; i < players.size(); i++) {
 			if (players.get(i).getCurrentPoints() == 0) {
 				winner = players.get(i);
