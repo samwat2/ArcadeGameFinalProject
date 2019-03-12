@@ -18,7 +18,6 @@ import model.Move;
 import model.NormPiece;
 import model.Pieces;
 
-
 public class Gameboard extends Application {
 	NormPiece[][] pieces = new NormPiece[8][8];
 	NormPiece tempPiece;
@@ -82,14 +81,14 @@ public class Gameboard extends Application {
 		root.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
 			int row = (int) (e.getY() / 100);
 			int col = (int) (e.getX() / 100);
-			
+
 			if (tempPiece == null) {
-			
+
 				resetBackground(root, size);
 				if (pieces[row][col] != null) {
 					if (pieces[row][col].color.equals(turn))
 						if (pieces[row][col].getMoves() != null)
-							//insert jump
+							// insert jump
 							for (Move move : pieces[row][col].getMoves()) {
 								if (getStackPaneFromGridPane(root, move.getCol(), move.getRow()) != null) {
 									if (pieces[move.getRow()][move.getCol()] == null
@@ -100,41 +99,45 @@ public class Gameboard extends Application {
 									}
 								}
 							}
-					StackPane mattePane = (StackPane) getStackPaneFromGridPane(root, (int) (e.getX() / 100),
-							(int) (e.getY() / 100));
-					
-					mattePane.setStyle("-fx-background-color: yellow;");
+//					StackPane mattePane = (StackPane) getStackPaneFromGridPane(root, (int) (e.getX() / 100),
+//							(int) (e.getY() / 100));
+//
+//					mattePane.setStyle("-fx-background-color: yellow;");
 					tempPiece = pieces[row][col];
 				}
 			} else {
 				if (getStackPaneFromGridPane(root, col, row).getStyle().equals("-fx-background-color: green;")) {
-					ImageView removeImage = getImageFromGridPane(root, col, row);
+					ImageView removeImage = null;
 					int x = 0;
 					int y = 0;
-//					if (removeImage != null) {
-						if(tempPiece.getColor() == "Red Piece" && col < tempPiece.getX()) {
-							removeImage = getImageFromGridPane(root, col + 1, row + 1);
-							x = col + 1;
-							y = row + 1;
+
+					if (row < tempPiece.getY() && col < tempPiece.getX()) {
+						removeImage = getImageFromGridPane(root, col + 1, row + 1);
+						x = col + 1;
+						y = row + 1;
+					}
+					if (row < tempPiece.getY() && col > tempPiece.getX()) {
+						removeImage = getImageFromGridPane(root, col - 1, row + 1);
+						x = col - 1;
+						x = row + 1;
+					}
+					if (row > tempPiece.getY() && col > tempPiece.getX()) {
+						removeImage = getImageFromGridPane(root, col - 1, row - 1);
+						x = col - 1;
+						y = row - 1;
+					}
+					if (row > tempPiece.getY() && col < tempPiece.getX()) {
+						removeImage = getImageFromGridPane(root, col + 1, row - 1);
+						x = col + 1;
+						y = row - 1;
+					}
+					if (removeImage != null) {
+						if (pieces[y][x] != null) {
+							if (pieces[y][x].getColor() != tempPiece.getColor()) {
+								root.getChildren().remove(removeImage);
+							}
 						}
-						if(tempPiece.getColor() == "Red Piece" && col > tempPiece.getX()) {
-							removeImage = getImageFromGridPane(root, col - 1 , row + 1);
-							x = col - 1;
-							x = row + 1;
-						}
-						if(tempPiece.getColor() == "Black Piece" && col > tempPiece.getX()) {
-							removeImage = getImageFromGridPane(root, col - 1 , row - 1);
-							x = col - 1;
-							y = row - 1;
-						}
-						if(tempPiece.getColor() == "Black Piece" && col < tempPiece.getX()) {
-							removeImage = getImageFromGridPane(root, col + 1 , row - 1);
-							x = col + 1;
-							y = row - 1;
-						}
-						if(removeImage != null && pieces[y][x].getColor() != tempPiece.getColor()) {
-						root.getChildren().remove(removeImage);
-						}
+					}
 
 //					}
 					for (int i = 0; i <= 7; i++) {
@@ -240,18 +243,16 @@ public class Gameboard extends Application {
 					tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() + 1));
 					attack = true;
 
-				if (pieces[move.getRow()][move.getCol()] != null
-						&& pieces[move.getRow() - 1][move.getCol() - 1] == null) {
-					tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() - 1));
-					attack = true;
+					if (pieces[move.getRow()][move.getCol()] != null
+							&& pieces[move.getRow() - 1][move.getCol() - 1] == null) {
+						tempPiece.getMoves().add(new Move(move.getRow() - 1, move.getCol() - 1));
+						attack = true;
+					}
 				}
 			}
-		}
-	
-	}
 
-	
-		
+		}
+
 	}
 
 }

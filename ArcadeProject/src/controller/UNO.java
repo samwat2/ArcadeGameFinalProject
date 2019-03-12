@@ -84,7 +84,9 @@ public class UNO extends Application {
 
 				}
 			});
+			
 			mainMenu();
+			
 			String url = "file:Sprites/red background.jpg";
 			Image backGround = new Image(url);
 			BackgroundImage back = new BackgroundImage(backGround, null, null, null,
@@ -123,9 +125,9 @@ public class UNO extends Application {
 	}
 
 	public static void mainMenu() {
-//		do {
+		do {
 		playGame();
-//		} while (quit);
+		} while (!declareWinner());
 
 	}
 
@@ -260,7 +262,7 @@ public class UNO extends Application {
 		createPlayers();
 //		testPlayers();
 		deckInit();
-//		turn();
+		turn();
 		playerKeyEntry(currentPlayer);
 //		System.out.println(getCurrentCard().toString());
 		if (reverse) {
@@ -268,7 +270,7 @@ public class UNO extends Application {
 		} else {
 			turnCount++;
 		}
-//			declaredWinner = declareWinner();
+		declareWinner();
 
 	}
 
@@ -309,7 +311,7 @@ public class UNO extends Application {
 				}
 				// if wild
 				if (getCurrentCard().getCardFace() == CardFace.WILD) {
-
+					//player decides on the new card color that's going to change.
 				}
 				// if wild4
 				if (getCurrentCard().getCardFace() == CardFace.WILDDRAWFOUR) {
@@ -359,7 +361,12 @@ public class UNO extends Application {
 					currentPlayer.setHand(deck.retrieveInitialCards());
 					legalMoves();
 					moves();
+					currentPlayer.setHand(deck.retrieveInitialCards());
+					legalMoves();
+					moves();
+//					drawHand(player);
 					no.setVisible(false);
+
 				} else {
 					no.setVisible(true);
 				}
@@ -443,7 +450,6 @@ public class UNO extends Application {
 			}
 			// if the face value is the same integer
 			if (currentCardValue == currentPlayerCardValue) {
-				//
 				if (currentCardValue < currentPlayerCardValue) {
 					if (currentCardValue <= 19 || currentPlayerCardValue <= 19) {
 						currentPlayer.getHand().get(i).setPlayable(true);
