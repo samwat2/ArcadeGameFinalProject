@@ -125,9 +125,9 @@ public class UNO extends Application {
 	}
 
 	public static void mainMenu() {
-		do {
+//		do {
 		playGame();
-		} while (!declareWinner());
+//		} while (!declareWinner());
 
 	}
 
@@ -222,11 +222,11 @@ public class UNO extends Application {
 		card = deck.getCards().get(0);
 		discardPile.add(card);
 
-//		Image image1 = new Image("file:Sprites/" + card + ".png", 100, 100, false, false);
-//		
-//		ImageView start = new ImageView(image1);
+		Image image1 = new Image("file:Sprites/RED 1.png", 100, 100, false, false);
+		
+		ImageView start = new ImageView(image1);
 
-//		background.getChildren().add(start);
+		background.getChildren().add(start);
 
 	}
 
@@ -259,18 +259,18 @@ public class UNO extends Application {
 	}
 
 	public static void playGame() {
-		createPlayers();
-//		testPlayers();
+//		createPlayers();
+		testPlayers();
 		deckInit();
-		turn();
 		playerKeyEntry(currentPlayer);
+		turn();
 //		System.out.println(getCurrentCard().toString());
 		if (reverse) {
 			turnCount--;
 		} else {
 			turnCount++;
 		}
-		declareWinner();
+//		declareWinner();
 
 	}
 
@@ -357,14 +357,10 @@ public class UNO extends Application {
 				String input = textField.getText();
 				int input2 = Integer.parseInt(input);
 				if (input2 == player.getKey()) {
-//					drawHand(player);
 					currentPlayer.setHand(deck.retrieveInitialCards());
+//					drawHand(player);
 					legalMoves();
 					moves();
-					currentPlayer.setHand(deck.retrieveInitialCards());
-					legalMoves();
-					moves();
-//					drawHand(player);
 					no.setVisible(false);
 
 				} else {
@@ -373,7 +369,7 @@ public class UNO extends Application {
 			}
 		});
 
-		no.setVisible(true);
+		no.setVisible(false);
 		background.getChildren().add(no);
 
 		HBox secondaryLayout = new HBox();
@@ -393,7 +389,7 @@ public class UNO extends Application {
 
 		secondaryLayout.getChildren().add(submit);
 
-//		newWindow.setAlwaysOnTop(true);
+		newWindow.setAlwaysOnTop(true);
 		newWindow.show();
 
 //		label1.setTranslateX(-170);
