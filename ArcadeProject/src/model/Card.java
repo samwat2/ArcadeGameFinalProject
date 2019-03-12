@@ -44,13 +44,9 @@ public class Card {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("\nCard [cardColor=");
 		builder.append(cardColor);
-		builder.append(", faceValue=");
+		builder.append(" ");
 		builder.append(faceValue);
-		builder.append(", playable=");
-		builder.append(playable);
-		builder.append("]");
 		return builder.toString();
 	}
 
