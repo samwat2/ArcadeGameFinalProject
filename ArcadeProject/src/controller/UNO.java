@@ -141,7 +141,7 @@ public class UNO extends Application {
 		submit.setOnAction(new EventHandler<ActionEvent>() {
 
 			@Override
-			public void handle(ActionEvent event) {
+			public void handle(ActionEvent event) {	
 				playerInfo(textField);
 			}
 		});
@@ -278,6 +278,7 @@ public class UNO extends Application {
 		for (int i = 0; i < currentPlayer.getHand().size(); i++) {
 			if (currentPlayer.getHand().get(i).isPlayable()) {
 				// display cards
+				
 				// if selected then make the boolean false;
 				// event listener
 				boolean played = currentPlayer.getHand().get(i).isPlayable() == false;
@@ -427,10 +428,7 @@ public class UNO extends Application {
 	}
 
 	public static void legalMoves() {
-		// THIS METHOD NEEDS TO BE TESTED
 		currentCard = getCurrentCard();// retrieves the card the player needs to play
-//			System.out.println("currentCard: " + currentCard);
-//			System.out.println("\n\nOLD:" + Arrays.toString(currentPlayer.getHand())); //shows the card
 
 		for (int i = 0; i < currentPlayer.getHand().size() - 1; i++) {
 
@@ -469,10 +467,6 @@ public class UNO extends Application {
 	}
 
 	public static boolean declareWinner() {
-		/*
-		 * objective: the first player to play their hand in each round scores points
-		 * per card on their opponents hand.
-		 */
 		for (int i = 0; i < players.size(); i++) {
 			if (players.get(i).getCurrentPoints() == 0) {
 				winner = players.get(i);
