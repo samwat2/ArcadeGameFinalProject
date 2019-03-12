@@ -131,36 +131,57 @@ public class UNO extends Application {
 
 	// this method needs to be tested
 	public static void createPlayers() {
-		int input2, count1 = 0, numOfPlayers = 0;
-		// text-field for amount of players
-//		Label label1 = new Label("How many players will be joining?");
-		final TextField amountOfPlayers = new TextField();
-		// text-field text
-		amountOfPlayers.setPromptText("How many players will be joining?");
-		do {
-			amountOfPlayers.getText();
-		} while (numOfPlayers > 0 || numOfPlayers < 4);
-		// AI
-		if (numOfPlayers == 1) {
-			AI player2 = new AI("player2", deck.retrieveInitialCards(), 000, 2);
-			players.put(000, player2);
-		}
-//		do {
-		for (int i = 0; i < numOfPlayers; i++) {
-			// player's info per player
-			final TextField name = new TextField();
-			name.setText("Enter your name.");
-			PasswordField key = new PasswordField();
-			key.setText("Your key.");
-			input2 = Integer.parseInt(key.getText());
-			currentPlayer = new Player(name.getText(), input2, count1);
+		Stage primaryStage = new Stage();
+		Label label1 = new Label("How Many Players");
+		TextField textField = new TextField();
+		Button submit = new Button("Submit");
+		Label alert = new Label("Must be a number");
 
-			players.put(input2, currentPlayer);
-			count1++;
-		}
-//			currentPlayer.setHand(deck.retrieveInitialCards());
+		submit.setOnAction(new EventHandler<ActionEvent>() {
 
-//		} while (correct);
+			@Override
+			public void handle(ActionEvent event) {
+				try {
+					int count = 0;
+					int newField = Integer.parseInt(textField.getText());
+					for (int i = 0; i < newField; i++) {
+						TextField name = new TextField();
+			            name.setText("Enter your name.");
+			            PasswordField key = new PasswordField();
+			            key.setText("Your key.");
+			            int input2 = Integer.parseInt(key.getText());
+			            currentPlayer = new Player(name.getText(), input2, count);
+
+			            players.put(input2, currentPlayer);
+			            count++;
+					}
+				} catch (NumberFormatException e) {
+					alert.setVisible(true);
+				}
+			}
+		});
+
+		background.getChildren().add(alert);
+
+		HBox secondaryLayout = new HBox();
+
+		secondaryLayout.setSpacing(10);
+		secondaryLayout.getChildren().addAll(label1, textField);
+		Scene secondScene = new Scene(secondaryLayout, 700, 100);
+		Stage newWindow = new Stage();
+		newWindow.setTitle("Name");
+		newWindow.setScene(secondScene);
+		newWindow.initModality(Modality.WINDOW_MODAL);
+
+		newWindow.initOwner(primaryStage);
+		newWindow.setX(800);
+		newWindow.setY(100);
+		newWindow.setResizable(false);
+
+		secondaryLayout.getChildren().add(submit);
+
+		newWindow.setAlwaysOnTop(true);
+		newWindow.show();
 
 	}
 
@@ -171,6 +192,13 @@ public class UNO extends Application {
 		deck.shuffleDeck();
 		card = deck.getCards().get(0);
 		discardPile.add(card);
+
+//		Image image1 = new Image("file:Sprites/" + card + ".png", 100, 100, false, false);
+//		
+//		ImageView start = new ImageView(image1);
+
+//		background.getChildren().add(start);
+
 	}
 
 	public static void testPlayers() {
@@ -205,12 +233,12 @@ public class UNO extends Application {
 		createPlayers();
 //		testPlayers();
 		deckInit();
-		turn();
-		currentPlayer.setHand(deck.retrieveInitialCards());
+//		turn();
 		playerKeyEntry(currentPlayer);
+//		currentPlayer.setHand(deck.retrieveInitialCards());
 		legalMoves();
 		moves();
-		System.out.println(getCurrentCard().toString());
+//		System.out.println(getCurrentCard().toString());
 		if (reverse) {
 			turnCount--;
 		} else {
@@ -293,6 +321,7 @@ public class UNO extends Application {
 		Label label1 = new Label("Key:");
 		TextField textField = new TextField();
 		Button submit = new Button("Submit");
+		Label no = new Label("Not the correct key");
 
 		submit.setOnAction(new EventHandler<ActionEvent>() {
 
@@ -303,13 +332,14 @@ public class UNO extends Application {
 				int input2 = Integer.parseInt(input);
 				if (input2 == player.getKey()) {
 					drawHand(player);
+					no.setVisible(false);
 				} else {
-					Label no = new Label("Not the correct key");
 					no.setVisible(true);
-					background.getChildren().add(no);
 				}
 			}
 		});
+
+		background.getChildren().add(no);
 
 		HBox secondaryLayout = new HBox();
 
