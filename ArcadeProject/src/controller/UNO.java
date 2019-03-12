@@ -48,7 +48,7 @@ public class UNO extends Application {
 	public static Deck deck;// all 112 cards.
 	public static ArrayList<Card> discardPile = new ArrayList<Card>();
 	private static Main main = new Main();
-	private static boolean quit = false, reverse = false;
+	private static boolean reverse = false;
 	private Button backButton = new Button("Back to the Main Menu");
 	private Button draw = new Button("Draw");
 	private Button endTurn = new Button("End Turn");
@@ -132,20 +132,16 @@ public class UNO extends Application {
 	// this method needs to be tested
 	public static void createPlayers() {
 		int input2, count1 = 0, numOfPlayers = 0;
-		boolean correct = false;
 		// text-field for amount of players
+//		Label label1 = new Label("How many players will be joining?");
 		final TextField amountOfPlayers = new TextField();
 		// text-field text
-		amountOfPlayers.setText("How many players will be joining?");
-		String input;
+		amountOfPlayers.setPromptText("How many players will be joining?");
 		do {
-			// gathered input
-			input = amountOfPlayers.getText();
-			// parsed input
-			numOfPlayers = Integer.parseInt(input);
-		}while(numOfPlayers > 0 || numOfPlayers < 4);
-		//AI
-		if(numOfPlayers == 1) {
+			amountOfPlayers.getText();
+		} while (numOfPlayers > 0 || numOfPlayers < 4);
+		// AI
+		if (numOfPlayers == 1) {
 			AI player2 = new AI("player2", deck.retrieveInitialCards(), 000, 2);
 			players.put(000, player2);
 		}
@@ -162,7 +158,7 @@ public class UNO extends Application {
 			players.put(input2, currentPlayer);
 			count1++;
 		}
-			currentPlayer.setHand(deck.retrieveInitialCards());
+//			currentPlayer.setHand(deck.retrieveInitialCards());
 
 //		} while (correct);
 
@@ -176,7 +172,7 @@ public class UNO extends Application {
 		card = deck.getCards().get(0);
 		discardPile.add(card);
 	}
-	
+
 	public static void testPlayers() {
 		int count2 = 0;
 		currentPlayer = new Player("Sammy", 2468, count2);
@@ -191,100 +187,90 @@ public class UNO extends Application {
 //		currentPlayer = new Player("Izzie", 2222, count);
 //		count++;
 //		players.put(2222, currentPlayer);
-		
+
 	}
-	
+
 	public static void turn() {
 		int turn = (turnCount % players.size());
-		for(Player player : players.values()) {
-			if(player.getId() == turn) {
+		for (Player player : players.values()) {
+			if (player.getId() == turn) {
 				currentPlayer = player;
 			}
-			
+
 		}
-		
+
 	}
 
 	public static void playGame() {
-		boolean declaredWinner = false;
-		int count = 0;
 		createPlayers();
-//		 tested out players
 //		testPlayers();
 		deckInit();
 		turn();
-//		do {
-//		currentPlayer = null;
-//		System.out.println(currentPlayer.getName());
 		currentPlayer.setHand(deck.retrieveInitialCards());
-//		drawHand(currentPlayer);
 		playerKeyEntry(currentPlayer);
 		legalMoves();
 		moves();
 		System.out.println(getCurrentCard().toString());
-		if(reverse) {
+		if (reverse) {
 			turnCount--;
-		}else {
+		} else {
 			turnCount++;
 		}
 //			declaredWinner = declareWinner();
 
-
 	}
-	
+
 	public static void moves() {
-		//if the card is playable then this will happen
-			//all are selectable
-		for(int i = 0 ; i < currentPlayer.getHand().size(); i ++ ) {
-			if(currentPlayer.getHand().get(i).isPlayable()) {
-				//display cards
-				//if selected then make the boolean false;
-					//event listener
+		for (int i = 0; i < currentPlayer.getHand().size(); i++) {
+			if (currentPlayer.getHand().get(i).isPlayable()) {
+				// display cards
+				// if selected then make the boolean false;
+				// event listener
 				boolean played = currentPlayer.getHand().get(i).isPlayable() == false;
-				if(played) {
+				if (played) {
 					discardPile.add(currentPlayer.getHand().get(i));
 					currentPlayer.removeCard(currentPlayer.getHand().get(i));
 					drawHand(currentPlayer);
 				}
 			}
 		}
-		//special cards
-		if(getCurrentCard().getFaceValue() > 10) {
-				if((getCurrentCard().getClass().equals(SpecialCards.class))){
-					//if reverse
-					if(getCurrentCard().getCardFace() == CardFace.REVERSE) {
-						reverse = true;
-					}
-					//if skip
-					if(getCurrentCard().getCardFace() == CardFace.SKIP) {
-						turnCount++;
-					}
-					//if draw2
-					if(getCurrentCard().getCardFace() == CardFace.DRAW2) {
-						for(Player player : players.values()) {
-							if(player.getId() != currentPlayer.getId()) {
-								for(int i = 0; i < 2; i ++) {
-									drawHand(player);	
-								}
-							}
-						}
-					}
-					//if wild
-					if(getCurrentCard().getCardFace() == CardFace.WILD) {
-						
-					}
-					//if wild4
-					if(getCurrentCard().getCardFace() == CardFace.WILDDRAWFOUR) {
-						for(Player player : players.values()) {
-							if(player.getId() != currentPlayer.getId()) {
-								for(int i = 0; i < 4; i ++) {
-									drawHand(player);
-								}
+		// special cards
+		if (getCurrentCard().getFaceValue() > 10) {
+			if ((getCurrentCard().getClass().equals(SpecialCards.class))) {
+				// if reverse
+				if (getCurrentCard().getCardFace() == CardFace.REVERSE) {
+					reverse = true;
+				}
+				// if skip
+				if (getCurrentCard().getCardFace() == CardFace.SKIP) {
+					turnCount++;
+				}
+				// if draw2
+				if (getCurrentCard().getCardFace() == CardFace.DRAW2) {
+					for (Player player : players.values()) {
+						if (player.getId() != currentPlayer.getId()) {
+							for (int i = 0; i < 2; i++) {
+								drawHand(player);
 							}
 						}
 					}
 				}
-				
+				// if wild
+				if (getCurrentCard().getCardFace() == CardFace.WILD) {
+
+				}
+				// if wild4
+				if (getCurrentCard().getCardFace() == CardFace.WILDDRAWFOUR) {
+					for (Player player : players.values()) {
+						if (player.getId() != currentPlayer.getId()) {
+							for (int i = 0; i < 4; i++) {
+								drawHand(player);
+							}
+						}
+					}
+				}
+			}
+
 		}
 
 	}
@@ -309,7 +295,7 @@ public class UNO extends Application {
 		Button submit = new Button("Submit");
 
 		submit.setOnAction(new EventHandler<ActionEvent>() {
-			
+
 			@Override
 			public void handle(ActionEvent event) {
 //				String key = String.valueOf(player.getKey());
@@ -379,49 +365,48 @@ public class UNO extends Application {
 //		System.out.println(deck.getCards().size());
 	}
 
-		public static void legalMoves() {
-			// THIS METHOD NEEDS TO BE TESTED
-			currentCard = getCurrentCard();//retrieves the card the player needs to play
+	public static void legalMoves() {
+		// THIS METHOD NEEDS TO BE TESTED
+		currentCard = getCurrentCard();// retrieves the card the player needs to play
 //			System.out.println("currentCard: " + currentCard);
 //			System.out.println("\n\nOLD:" + Arrays.toString(currentPlayer.getHand())); //shows the card
 
-			for (int i = 0; i < currentPlayer.getHand().size()-1; i++) {
-				
-				CardColor currentCardColor = getCurrentCard().getCardColor();
-				CardColor currentPlayerCardColor = currentPlayer.getHand().get(i).getCardColor();
-				int currentCardValue = currentPlayer.getHand().get(i).getFaceValue();
-				int currentPlayerCardValue = getCurrentCard().getFaceValue();
-				
-				// if the card-color has the same color
-				// set each boolean for the player to decide which to play.
-				if (currentCardColor  == currentPlayerCardColor ) {
-					currentPlayer.getHand().get(i).setPlayable(true); //allows the card to be playable
-				}
-				// if the face value is the same integer
-				if (currentCardValue == currentPlayerCardValue) {
-					//
-					if(currentCardValue < currentPlayerCardValue) {
-						if(currentCardValue <= 19 || currentPlayerCardValue <= 19) {
-							currentPlayer.getHand().get(i).setPlayable(true);
-						}	
-					}
-				}
-				// special cards
-				if((getCurrentCard().getClass().equals(SpecialCards.class)) && (currentPlayer.getHand().get(i).getClass().equals(SpecialCards.class))) {
-					if ((currentCardColor == currentPlayerCardColor)) { 
-						currentPlayer.getHand().get(i).setPlayable(true);
-					}
-					CardFace currentFace = (getCurrentCard().getCardFace());
-					CardFace currentPlayerFace = (currentPlayer.getHand().get(i).getCardFace());
-					if(0 == currentFace.compareTo(currentPlayerFace)) {
-						currentPlayer.getHand().get(i).setPlayable(true);
-					}
-				}  
+		for (int i = 0; i < currentPlayer.getHand().size() - 1; i++) {
+
+			CardColor currentCardColor = getCurrentCard().getCardColor();
+			CardColor currentPlayerCardColor = currentPlayer.getHand().get(i).getCardColor();
+			int currentCardValue = currentPlayer.getHand().get(i).getFaceValue();
+			int currentPlayerCardValue = getCurrentCard().getFaceValue();
+
+			// if the card-color has the same color
+			// set each boolean for the player to decide which to play.
+			if (currentCardColor == currentPlayerCardColor) {
+				currentPlayer.getHand().get(i).setPlayable(true); // allows the card to be playable
 			}
-//			System.out.println("NEW:" + Arrays.toString(currentPlayer.getHand())); //shows the card
+			// if the face value is the same integer
+			if (currentCardValue == currentPlayerCardValue) {
+				//
+				if (currentCardValue < currentPlayerCardValue) {
+					if (currentCardValue <= 19 || currentPlayerCardValue <= 19) {
+						currentPlayer.getHand().get(i).setPlayable(true);
+					}
+				}
+			}
+			// special cards
+			if ((getCurrentCard().getClass().equals(SpecialCards.class))
+					&& (currentPlayer.getHand().get(i).getClass().equals(SpecialCards.class))) {
+				if ((currentCardColor == currentPlayerCardColor)) {
+					currentPlayer.getHand().get(i).setPlayable(true);
+				}
+				CardFace currentFace = (getCurrentCard().getCardFace());
+				CardFace currentPlayerFace = (currentPlayer.getHand().get(i).getCardFace());
+				if (0 == currentFace.compareTo(currentPlayerFace)) {
+					currentPlayer.getHand().get(i).setPlayable(true);
+				}
+			}
 		}
-
-
+//			System.out.println("NEW:" + Arrays.toString(currentPlayer.getHand())); //shows the card
+	}
 
 	public static boolean declareWinner() {
 		/*
@@ -438,8 +423,6 @@ public class UNO extends Application {
 	}
 
 	public static void drawHand(Player player) {
-		// every player initially gets a hand of seven cards
-		Card[] newHand = new Card[7];
 		Card newCard = null;
 		int x = -100;
 		int y = -100;
@@ -447,21 +430,21 @@ public class UNO extends Application {
 //			newHand[q] = deck.getCards()[q];
 //			newHand[q] = deck.getCards().get(q);
 			newCard = deck.getCards().get(q);
-			Image image = new Image("file:Sprites/" + deck.getCards().get(q) +".png", 100, 100, false, false);
+			Image image = new Image("file:Sprites/" + deck.getCards().get(q) + ".png", 100, 100, false, false);
 
 			ImageView flipped = new ImageView(image);
-			
+
 			flipped.setTranslateX(x);
 			flipped.setTranslateY(y);
 			background.getChildren().add(flipped);
-			
+
 			x += 100;
 			y += 100;
 		}
 		player.addCard(newCard);
 //		player.setHand(newHand);
 	}
-	
+
 	public static void draw() {
 		Card newc = getCurrentCard();
 		currentPlayer.addCard(newc);
