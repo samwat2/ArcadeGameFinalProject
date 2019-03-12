@@ -130,7 +130,7 @@ public class Deck {
 	}
 	
 	public ArrayList<Card> retrieveInitialCards() {
-		ArrayList<Card> hand = new ArrayList<Card>(7);
+		ArrayList<Card> hand = new ArrayList<Card>();
 		for(int i = 0; i < 7; i++ ) {
 			hand.add(cards.get(i));
 			cards.remove(i);
@@ -139,8 +139,9 @@ public class Deck {
 		return hand;
 	}
 	
-	public boolean addCards() {
-		return false;
+	public void removeCard() {
+		int index = cards.size() - 1;
+		cards.remove(index);
 	}
 
 	@Override

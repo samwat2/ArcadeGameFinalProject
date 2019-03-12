@@ -11,16 +11,19 @@ public class Player { 					//player creation
 	private Card card;
 	private int currentPoints;
 	private ArrayList<Card> hand = new ArrayList<Card>();
+	private int id;
 	
-	public Player(String name, ArrayList<Card> hand, int key) {
+	public Player(String name, ArrayList<Card> hand, int key, int id) {
 		setName(name);
 		setKey(key);
 		setHand(hand);
+		setId(id);
 	}
-	public Player(String name, int key) {
+	public Player(String name, int key, int id) {
 		setName(name);
 		setKey(key);
 		getHand();
+		setId(id);
 		
 	}
 
@@ -31,7 +34,14 @@ public class Player { 					//player creation
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
@@ -56,6 +66,9 @@ public class Player { 					//player creation
 	}
 	public void addCard(Card card) {
 		hand.add(card);
+	}
+	public void removeCard(Card card) {
+		hand.remove(card);
 	}
 	
 	public int getCurrentPoints() {

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class AI extends Player{
 	
-	public AI(String name, ArrayList<Card> hand, int key) {
-		super(name, hand, key);
+	public AI(String name, ArrayList<Card> hand, int key, int id) {
+		super(name, hand, key, id);
 		// TODO Auto-generated constructor stub
 	}
 	
